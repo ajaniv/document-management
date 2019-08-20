@@ -1,0 +1,1105 @@
+[
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "ClientOneGroup",
+    "permissions": [
+      [
+        "add_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "change_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "delete_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "view_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "add_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "change_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "delete_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "view_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "add_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "change_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "delete_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "view_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "add_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "change_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "delete_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "view_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "add_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "change_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "delete_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "view_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "add_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "change_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "delete_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "view_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "add_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "change_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "delete_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "view_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "add_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "change_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "delete_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "view_tag",
+        "docmgmt",
+        "tag"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "ClientTwoGroup",
+    "permissions": [
+      [
+        "add_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "change_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "delete_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "view_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "add_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "change_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "delete_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "view_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "add_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "change_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "delete_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "view_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "add_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "change_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "delete_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "view_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "add_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "change_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "delete_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "view_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "add_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "change_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "delete_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "view_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "add_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "change_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "delete_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "view_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "add_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "change_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "delete_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "view_tag",
+        "docmgmt",
+        "tag"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "SysGroupOne",
+    "permissions": [
+      [
+        "add_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "change_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "delete_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "view_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "add_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "change_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "delete_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "view_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "add_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "change_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "delete_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "view_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "add_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "change_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "delete_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "view_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "add_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "change_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "delete_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "view_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "add_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "change_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "delete_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "view_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "add_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "change_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "delete_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "view_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "add_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "change_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "delete_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "view_tag",
+        "docmgmt",
+        "tag"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "StaffGroup",
+    "permissions": [
+      [
+        "add_group",
+        "auth",
+        "group"
+      ],
+      [
+        "change_group",
+        "auth",
+        "group"
+      ],
+      [
+        "delete_group",
+        "auth",
+        "group"
+      ],
+      [
+        "view_group",
+        "auth",
+        "group"
+      ],
+      [
+        "add_permission",
+        "auth",
+        "permission"
+      ],
+      [
+        "change_permission",
+        "auth",
+        "permission"
+      ],
+      [
+        "delete_permission",
+        "auth",
+        "permission"
+      ],
+      [
+        "view_permission",
+        "auth",
+        "permission"
+      ],
+      [
+        "add_user",
+        "auth",
+        "user"
+      ],
+      [
+        "change_user",
+        "auth",
+        "user"
+      ],
+      [
+        "delete_user",
+        "auth",
+        "user"
+      ],
+      [
+        "view_user",
+        "auth",
+        "user"
+      ],
+      [
+        "add_token",
+        "authtoken",
+        "token"
+      ],
+      [
+        "change_token",
+        "authtoken",
+        "token"
+      ],
+      [
+        "delete_token",
+        "authtoken",
+        "token"
+      ],
+      [
+        "view_token",
+        "authtoken",
+        "token"
+      ],
+      [
+        "add_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "change_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "delete_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "view_annotation",
+        "docmgmt",
+        "annotation"
+      ],
+      [
+        "add_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "change_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "delete_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "view_auxiliarydocument",
+        "docmgmt",
+        "auxiliarydocument"
+      ],
+      [
+        "add_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "change_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "delete_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "view_category",
+        "docmgmt",
+        "category"
+      ],
+      [
+        "add_client",
+        "docmgmt",
+        "client"
+      ],
+      [
+        "change_client",
+        "docmgmt",
+        "client"
+      ],
+      [
+        "delete_client",
+        "docmgmt",
+        "client"
+      ],
+      [
+        "view_client",
+        "docmgmt",
+        "client"
+      ],
+      [
+        "add_clientuser",
+        "docmgmt",
+        "clientuser"
+      ],
+      [
+        "change_clientuser",
+        "docmgmt",
+        "clientuser"
+      ],
+      [
+        "delete_clientuser",
+        "docmgmt",
+        "clientuser"
+      ],
+      [
+        "view_clientuser",
+        "docmgmt",
+        "clientuser"
+      ],
+      [
+        "add_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "change_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "delete_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "view_document",
+        "docmgmt",
+        "document"
+      ],
+      [
+        "add_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "change_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "delete_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "view_documentannotation",
+        "docmgmt",
+        "documentannotation"
+      ],
+      [
+        "add_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "change_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "delete_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "view_documenttag",
+        "docmgmt",
+        "documenttag"
+      ],
+      [
+        "add_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "change_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "delete_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "view_referencedocument",
+        "docmgmt",
+        "referencedocument"
+      ],
+      [
+        "add_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "change_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "delete_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "view_tag",
+        "docmgmt",
+        "tag"
+      ],
+      [
+        "add_site",
+        "sites",
+        "site"
+      ],
+      [
+        "change_site",
+        "sites",
+        "site"
+      ],
+      [
+        "delete_site",
+        "sites",
+        "site"
+      ],
+      [
+        "view_site",
+        "sites",
+        "site"
+      ]
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$150000$39hJN24RQKOW$DcV/Di4wLC3m4MhyZlg4ys6GNRm1+RsalL+24k/Ziy4=",
+    "last_login": "2019-08-07T20:26:27.367Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@ondalear.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-08-07T18:49:33.606Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$150000$R3RUieeHzKkt$QjVspzaQ+IaEszya7+Y0NZjk9zpGbaylHUZzwYSDHYo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "client_1_user_1",
+    "first_name": "Client_1_user_1_first",
+    "last_name": "Client_1_user_1_last",
+    "email": "client_1_user_1@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-08-07T20:27:25Z",
+    "groups": [
+      [
+        "ClientOneGroup"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$150000$9bl3QH6JWdYM$1P22RK9YeiYwFJyF1lWiVFiM6B2ZIOqCzDc0kbJ0/MI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "client_2_user_1",
+    "first_name": "client_2_user_1_first",
+    "last_name": "client_2_user_1_last",
+    "email": "client_2_user_1@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-08-07T20:28:16Z",
+    "groups": [
+      [
+        "ClientTwoGroup"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$150000$TV05xT6r71uI$m9LZdNuDtkBFf54iU/at5AkLhYCVm+v/3O+lUwsSNE0=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sys_client_1_user_1",
+    "first_name": "sys_client_1_user_1_first",
+    "last_name": "sys_client_1_user_1_last",
+    "email": "sys_client_1_user_1@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-08-07T20:29:26Z",
+    "groups": [
+      [
+        "SysGroupOne"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$150000$rLmy1FmtpFoO$Geszfz5VHjZ7unpqdGpHQzQq166PQDGzRLRjVVDkxLM=",
+    "last_login": "2019-08-10T15:24:15Z",
+    "is_superuser": false,
+    "username": "staff",
+    "first_name": "staff_first",
+    "last_name": "staff_last",
+    "email": "staff@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-08-10T15:17:42Z",
+    "groups": [
+      [
+        "StaffGroup"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sites.site",
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "docmgmt.clientuser",
+  "pk": 1,
+  "fields": {
+    "uuid": "4761c145-675d-465d-af43-3813b9c47315",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:38:58.173Z",
+    "update_time": "2019-08-07T20:38:58.173Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client": 1,
+    "user": [
+      "client_1_user_1"
+    ],
+    "phone": null,
+    "description": "",
+    "login_count": 0
+  }
+},
+{
+  "model": "docmgmt.clientuser",
+  "pk": 2,
+  "fields": {
+    "uuid": "0cd2ba74-9062-48bd-ad2f-2805e8a09424",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:39:19.500Z",
+    "update_time": "2019-08-07T20:39:19.500Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client": 2,
+    "user": [
+      "client_2_user_1"
+    ],
+    "phone": null,
+    "description": "",
+    "login_count": 0
+  }
+},
+{
+  "model": "docmgmt.clientuser",
+  "pk": 3,
+  "fields": {
+    "uuid": "3b973959-597b-470e-8f8a-57dd3a6fe7ed",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:41:09.694Z",
+    "update_time": "2019-08-07T20:41:09.694Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client": 3,
+    "user": [
+      "sys_client_1_user_1"
+    ],
+    "phone": null,
+    "description": "",
+    "login_count": 0
+  }
+},
+{
+  "model": "docmgmt.client",
+  "pk": 1,
+  "fields": {
+    "uuid": "0bfccf72-abe4-4c98-b4fc-1d1b46f78b63",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:37:04.334Z",
+    "update_time": "2019-08-07T20:37:04.334Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client_id": "client_one",
+    "name": "Client One LLC",
+    "email": null,
+    "phone": null,
+    "description": "",
+    "is_system": false
+  }
+},
+{
+  "model": "docmgmt.client",
+  "pk": 2,
+  "fields": {
+    "uuid": "7708439e-2e8d-4c09-9a15-d64ad9be9296",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:37:33.568Z",
+    "update_time": "2019-08-07T20:37:33.568Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client_id": "client_two",
+    "name": "Client Two LLC",
+    "email": null,
+    "phone": null,
+    "description": "",
+    "is_system": false
+  }
+},
+{
+  "model": "docmgmt.client",
+  "pk": 3,
+  "fields": {
+    "uuid": "7b276ce8-e18b-46c1-9ef1-be89f902158f",
+    "version": 1,
+    "is_enabled": true,
+    "is_deleted": false,
+    "creation_time": "2019-08-07T20:40:40.743Z",
+    "update_time": "2019-08-07T20:40:40.743Z",
+    "creation_user": [
+      "admin"
+    ],
+    "update_user": [
+      "admin"
+    ],
+    "effective_user": [
+      "admin"
+    ],
+    "site": [
+      "example.com"
+    ],
+    "client_id": "system_client_1",
+    "name": "System Client One LLC",
+    "email": null,
+    "phone": null,
+    "description": "",
+    "is_system": true
+  }
+}
+]

@@ -1,0 +1,5 @@
+-r ./common.txt
+-r ./testing.txt
+drf-yasg==1.16.1
+packaging==19.0
+pylint==2.3.1

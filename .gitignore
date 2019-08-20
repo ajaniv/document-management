@@ -1,0 +1,13 @@
+# ide
+.vscode
+
+# logging
+logs/
+*.log
+
+# django
+media/
+
+# db
+databases/
+db.sql*
