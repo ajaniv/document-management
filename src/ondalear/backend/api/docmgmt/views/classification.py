@@ -18,6 +18,7 @@ from ondalear.backend.api.docmgmt.serializers import (CategorySerializer,
 
 from ondalear.backend.api.docmgmt.views.queries import (ClassificationQueryMixin,
                                                         DocumentTagQueryMixin)
+from ondalear.backend.api.docmgmt.views.base import AssociationViewSet
 
 # pylint: disable=too-many-ancestors
 
@@ -97,10 +98,13 @@ class TagViewSet(ClassificationQueryMixin, HierarchyMixin, AbstractModelViewSet)
         """handle tag hierarchy request"""
         return self.build_hierarchy(request)
 
-class DocumentTagViewSet(DocumentTagQueryMixin, AbstractModelViewSet):
+class DocumentTagViewSet(AssociationViewSet,            # pylint: disable=abstract-method
+                         DocumentTagQueryMixin,
+                         AbstractModelViewSet):
     """Document tag association view class"""
     queryset = DocumentTag.objects.all().order_by('-update_time')
     serializer_class = DocumentTagSerializer
+
 
 
 class CategoryViewSet(ClassificationQueryMixin, HierarchyMixin, AbstractModelViewSet):

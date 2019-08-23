@@ -16,7 +16,6 @@ from django.urls import reverse
 from rest_framework import status
 
 from ondalear.backend.core.python.utils import file_exists, module_directory, remove, utc_now
-
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.tests.docmgmt.models import factories
 from .base import AbstractDocMgmtAPITestCase, AssertMixin
@@ -111,28 +110,19 @@ class DocumentAssertMixin(AssertMixin):
         """expect to fetch document list"""
         tag_id = self.tag.id
         query_str = f'document__tags__in={tag_id}'
-        self.assert_list(query_str=query_str)
+        self.assert_list(query_str=query_str, documents=[self.doc1])
 
     def assert_tags_missing(self):
         """ expect to fail to fetch document list"""
-        self.assert_list(query_str='document__tags__in=100', expected_count=0)
+        self.assert_list(query_str='document__tags__in=100',
+                         expected_count=0,
+                         documents=[self.doc1])
 
     def assert_tags_in(self):
         """expect to fetch document list"""
         tag_id = self.tag.id
         query_str = f'document__tags__in={tag_id},100,200'
-        self.assert_list(query_str=query_str)
-
-    def tweak_put_data(self, data):
-        """tweak put data hook"""
-        super().tweak_put_data(data)
-        # the put depends on a get, which only returns the linked document id,
-        #   and the purpose is missing
-        try:
-            documents = data.pop('documents')
-            data['documents'] = [[documents[0], constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION]]
-        except KeyError:
-            pass            
+        self.assert_list(query_str=query_str, documents=[self.doc1])
 
 
 class FileUploadMixin:
@@ -205,7 +195,6 @@ class FileUploadAssertMixin:
                 del put_data[key]
             put_data['name'] = source_file_name
             put_data['upload'] = File(open(test_data_file_path(source_file_name)))
-            self.tweak_put_data(put_data)
 
             # make put api request
             put_response = self.client.put(url, data=put_data, format='multipart')
@@ -269,28 +258,25 @@ class AbstractDocumentApiTest(DocumentAssertMixin, AbstractDocMgmtAPITestCase):
     def setUp(self):
         """testcase setup"""
         super(AbstractDocumentApiTest, self).setUp()
-        tag = factories.TagModelFactory(name='tag_1',
-                                        target=self.tag_target,
-                                        domain=constants.CLASSIFICATION_DOMAIN_GENERAL)
-        tag_dummy = factories.TagModelFactory(name='dummy_tag',
-                                              target=self.tag_target,
-                                              domain=constants.CLASSIFICATION_DOMAIN_GENERAL)
         category = factories.CategoryModelFactory(name='category_1',
                                                   target=self.category_target,
                                                   domain=constants.CLASSIFICATION_DOMAIN_GENERAL)
-        linked_document = factories.AuxiliaryDocumentModelFactory(
-            document__name='auxiliary document', content='question 1')
 
-        self.create_request_data['document']['tags'] = [tag.id]
         self.create_request_data['document']['category'] = category.id
-        self.create_request_data['document']['documents'] = [
-            [linked_document.document.id,  # to document
-            constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION]]# purpose
-        self.tag = tag
-        self.tag_dummy = tag_dummy
-        self.category = category
-        self.created_models.extend([tag, tag_dummy, category, linked_document.document])
 
+        self.category = category
+        self.created_models.extend([category])
+
+
+    def create_defaults(self):
+        """instance creation defaults"""
+        client = self.ondalear_client
+        user = self.user
+
+        defaults = dict(
+            client=client, update_user=user,
+            effective_user=user, creation_user=user)
+        return defaults
 
 class DocumentFilterTestMixin:
     """Document filter test mixin class"""
@@ -323,8 +309,76 @@ class DocumentFilterTestMixin:
         # expect to fetch document list
         self.assert_update_time_range()
 
-    from django.test.utils import override_settings
-    @override_settings(DEBUG=True)
+    def test_category_name_exact(self):
+        # expect to fetch documents
+        self.assert_list(query_str='document__category__name=category_1')
+
+    def test_category_name_exact_missing(self):
+        # expect to fail to fetch document list
+        self.assert_list(query_str='document__category__name=category_2', expected_count=0)
+
+    def test_category_name_in(self):
+        # expect to fetch document list
+        self.assert_list(query_str='document__category__name__in=category_1,category_2')
+
+class DocumentTagFilterTestMixin:
+    """Document tag filter test mixin class"""
+
+    def prepare(self):
+        """prepare for test case execuition"""
+        defaults = self.create_defaults()
+
+        tag, _ = self.create_tags(defaults)
+
+        # create reference document
+        document, create_request_data = self.create_document(defaults)
+
+        doc1 = self.document_factory(document=document,
+                                     content=create_request_data['content'])
+
+        # create document tag association - will be deleted when document is deleted
+        doc_tag = factories.DocumentTagModelFactory(
+            document=document, tag=tag,
+            **defaults)
+
+        self.doc1 = doc1
+        self.doc_tag = doc_tag
+
+        self.create_request_data = create_request_data
+        self.created_models.extend([doc1.document])
+
+    def create_tags(self, defaults):
+        tag = factories.TagModelFactory(name='tag_1',
+                                        target=self.tag_target,
+                                        domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
+                                        **defaults)
+        # created to verify multiple tag support
+        tag_dummy = factories.TagModelFactory(name='dummy_tag',
+                                              target=self.tag_target,
+                                              domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
+                                              **defaults)
+        self.tag = tag
+        self.tag_dummy = tag_dummy
+        self.created_models.extend([tag, tag_dummy])
+        return tag, tag_dummy
+
+    def create_document(self, defaults):
+        """create reference document"""
+        # prepare the document data so that response comparison work
+        create_request_data = deepcopy(self.create_request_data)
+        doc_name = 'document_tag_1'
+        document_data = create_request_data['document']
+        document_data['name'] = doc_name
+
+        # cannot create with category which is not an instance
+        category = document_data.pop('category')
+        document = factories.DocumentModelFactory(
+            document_type=self.document_type,
+            category=self.category,
+            **document_data, **defaults)
+        document_data['category'] = category
+        return document, create_request_data
+
     def test_tags_exact(self):
         # expect to fetch document list
         self.assert_tags_exact()
@@ -337,14 +391,35 @@ class DocumentFilterTestMixin:
         # expect to fetch document list
         self.assert_tags_in()
 
-    def test_category_name_exact(self):
-        # expect to fetch documents
-        self.assert_list(query_str='document__category__name=category_1')
 
-    def test_category_name_exact_missing(self):
-        # expect to fail to fetch document list
-        self.assert_list(query_str='document__category__name=category_2', expected_count=0)
+class LinkedDocumentsMixin:
+    """Linked documents mixin class"""
 
-    def test_category_name_in(self):
-        # expect to fetch document list
-        self.assert_list(query_str='document__category__name__in=category_1,category_2')
+    def create_linked_documents(self):
+        client = self.ondalear_client
+        user = self.user
+        defaults = dict(client=client, creation_user=user, update_user=user, effective_user=user)
+
+        # populating the ref document with data to ensure that the verification aftr the
+        #   request does not fail.
+        create_data = self.create_request_data
+        if create_data:
+            doc_data = self.create_request_data['document']
+            content = create_data['content']
+        else:
+            doc_data = dict(name='ref_doc', title='ref doc title', description='ref doc desc')
+            content = 'ref data content'
+        doc1 = factories.DocumentModelFactory(name=doc_data['name'],
+                                              title=doc_data['title'],
+                                              description=doc_data['description'],
+                                              **defaults)
+        ref_doc = factories.ReferenceDocumentModelFactory(
+            content=content, document=doc1)
+        doc2 = factories.DocumentModelFactory(name='aux_document_1', **defaults)
+        aux_doc = factories.AuxiliaryDocumentModelFactory(
+            content='what is your name', document=doc2)
+
+        self.created_models.extend([doc1, doc2])
+        self.aux_doc = aux_doc
+        self.ref_doc = ref_doc
+        return ref_doc, aux_doc

@@ -101,6 +101,9 @@ class ClassificationQueryMixin(AbstractQueryMixin):
 class DocumentTagQueryMixin(AbstractQueryMixin):
     """Document tag queryset mixin class"""
 
+class DocumentAssociationQueryMixin(AbstractQueryMixin):
+    """Document association queryset mixin class"""
+
 class DocumentAnnotationQueryMixin(AbstractQueryMixin):
     """Document annotation queryset mixin class"""
 

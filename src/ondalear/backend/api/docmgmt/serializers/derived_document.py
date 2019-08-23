@@ -13,11 +13,8 @@ from rest_framework.serializers import (FileField,
 
 from ondalear.backend.docmgmt.models import (constants,
                                              AuxiliaryDocument,
-                                             DocumentAssociation,
                                              Document,
-                                             DocumentTag,
-                                             ReferenceDocument,
-                                             Tag)
+                                             ReferenceDocument)
 from ondalear.backend.api.base_serializers import RequestContextMixin
 from ondalear.backend.api.docmgmt.serializers.document import DocumentSerializer
 
@@ -72,7 +69,7 @@ class AbstractDerivedDocumentModelSerializer(RequestContextMixin, ModelSerialize
         if isinstance(initial_data, (QueryDict,)):
             # @TODO: this is required for multi part request - cannot handle QueryDict
             initial_data = initial_data.dict()
-        
+
         document_data = initial_data.pop('document', None)
         if document_data and isinstance(document_data, (str,)):
             document_data = json.loads(document_data)
@@ -85,46 +82,6 @@ class AbstractDerivedDocumentModelSerializer(RequestContextMixin, ModelSerialize
         super(AbstractDerivedDocumentModelSerializer, self).is_valid(
             raise_exception=raise_exception)
 
-    def _create_document_tags(self, document, tags, create_context=None):
-        """create document tag association"""
-        if tags:
-            create_context = create_context or self.build_request_context()
-            for tag_id in tags:
-                # assert tag exists
-                try:
-                    tag = Tag.objects.get(pk=tag_id)
-                    DocumentTag.objects.create(document=document, tag=tag, **create_context)
-                except Tag.DoesNotExist:  # pylint: disable=no-member
-                    _logger.error('tag does not exist: %s', tag_id)
-
-    def _delete_document_tags(self, document):   # pylint: disable=no-self-use
-        """delete the tags associated with the document"""
-        DocumentTag.objects.filter(document=document).delete()
-
-    def _create_document_associations(self, from_document, documents, create_context=None):
-        """create document->document association"""
-        if documents:
-            # when using multi part for file upload, underlying framework
-            #  is using QueryDict, and the 'documents' value  is converted to stirng.
-            if isinstance(documents, (str,)):
-                replaced = documents.replace("'", "\"")
-                documents = [json.loads(replaced)]
-
-            create_context = create_context or self.build_request_context()
-            for document_id, purpose in documents:
-                # assert document exists
-                try:
-                    to_document = Document.objects.get(pk=document_id)
-                    DocumentAssociation.objects.create(from_document=from_document,
-                                                       to_document=to_document,
-                                                       purpose=purpose,
-                                                       **create_context)
-                except Document.DoesNotExist:  # pylint: disable=no-member
-                    _logger.error('document does not exist: %s', document_id)
-
-    def _delete_document_associations(self, document):   # pylint: disable=no-self-use
-        """delete the document associations"""
-        DocumentAssociation.objects.filter(from_document=document).delete()
 
     def to_representation(self, instance):      # pylint: disable=arguments-differ
         """Move fields from document to derived document representation."""
@@ -153,48 +110,8 @@ class AbstractDerivedDocumentModelSerializer(RequestContextMixin, ModelSerialize
         validated_data['document'] = document
         derived_document = self.Meta.model.objects.create(**validated_data)  # pylint: disable=no-member
 
-        # @TODO would have expected to have a beter way of getting tag handles
-        tags = self.context['request'].data.get('tags')
-        self._create_document_tags(document, tags, create_context)
-
-        documents = self.context['request'].data.get('documents')
-        self._create_document_associations(document, documents, create_context)
-
         return derived_document
 
-    def _update_tag_associations(self, document):
-        """update tag associations"""
-        # @TODO would have expected to have a beter way of getting tag handles
-        tags = self.context['request'].data.get('tags')
-        if tags:
-            # need to get existing list of tags
-            existing_tags = [item.tag_id for item
-                             in list(DocumentTag.objects.filter(document=document).only('tag_id'))]
-
-            # if the existing list is not the same, need to update
-            if sorted(tags) != sorted(existing_tags):
-                # delete existing tag associations
-                self._delete_document_tags(document)
-                # create new tag associations
-                self._create_document_tags(document, tags)
-
-    def _update_document_associations(self, document):
-        """update document association"""
-        documents = self.context['request'].data.get('documents')
-        if documents:
-            # need to get existing list of document links
-            existing_documents = [
-                [item.to_document.id, item.purpose] for item
-                in list(DocumentAssociation.objects.filter(
-                    from_document=document).only('to_document', 'purpose'))]
-            # if the existing list is not the same, need to update
-            def take_first(elem):
-                return elem[0]
-            if sorted(documents, key=take_first) != sorted(existing_documents, key=take_first):
-                # delete existing document association
-                self._delete_document_associations(document)
-                # create new document association
-                self._create_document_associations(document, documents)
 
     def update(self, instance, validated_data):
         """update the instance"""
@@ -210,9 +127,6 @@ class AbstractDerivedDocumentModelSerializer(RequestContextMixin, ModelSerialize
         # save changes
         document.save()
         instance.save()
-
-        self._update_tag_associations(document)
-        self._update_document_associations(document)
 
         return instance
 

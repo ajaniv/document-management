@@ -7,10 +7,13 @@ import logging
 
 from ondalear.backend.docmgmt.models import constants, ReferenceDocument
 from ondalear.backend.api.docmgmt.views.document import summary_response_fields
+from ondalear.backend.tests.docmgmt.models import factories
 from ondalear.backend.tests.api.docmgmt.views.base_document import (AbstractDocumentApiTest,
                                                                     DocumentFilterTestMixin,
+                                                                    DocumentTagFilterTestMixin,
                                                                     FileUploadMixin,
                                                                     FileUploadAssertMixin)
+from .base_document import LinkedDocumentsMixin
 
 _logger = logging.getLogger(__name__)
 
@@ -21,8 +24,9 @@ class AbstractReferenceDocumentApiTest(AbstractDocumentApiTest):
     """Base reference document api test"""
     create_url_name = 'reference-document-list'
     model_class = ReferenceDocument
-    tag_target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
+
     category_target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
+
 
 
 class ReferenceDocumentAPIPostTest(AbstractReferenceDocumentApiTest):
@@ -124,3 +128,45 @@ class ReferenceDocumentSummaryAPIListTest(AbstractReferenceDocumentApiTest):
 class ReferenceDocumentAPIFilterTest(DocumentFilterTestMixin, AbstractReferenceDocumentApiTest):
     """Reference document list filter test case"""
     url_name = 'reference-document-list'
+
+class ReferenceDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
+                                        AbstractReferenceDocumentApiTest):
+    """Reference document tag list filter test case"""
+    url_name = 'reference-document-list'
+    tag_target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
+    document_type = constants.DOCUMENT_TYPE_REFERENCE
+    document_factory = factories.ReferenceDocumentModelFactory
+
+
+    def setUp(self):
+        """Setup test case
+
+        Setting document tag association for tag related queries
+        """
+        super().setUp()
+        self.prepare()
+
+class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumentApiTest):
+    """Document association list test with linked documents"""
+    url_name = 'reference-document-list'
+
+    def setUp(self):
+        """Setup test case"""
+        super().setUp()
+        purpose = constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION
+        ref_doc, aux_doc = self.create_linked_documents()
+        defaults = self.create_defaults()
+        doc_association = factories.DocumentAssociationModelFactory(from_document=ref_doc.document,
+                                                                    to_document=aux_doc.document,
+                                                                    purpose=purpose,
+                                                                    **defaults)
+        # association will be deleted when document is deleted
+        self.doc_association = doc_association
+
+
+    def test_list(self):
+        # expect to list documents through api
+
+        response = self.assert_list(documents=self.ref_doc)
+        # verify that the linked document is returned and has the expected id
+        self.assertEqual(response.data['detail'][0]['documents'], [self.aux_doc.document.id])

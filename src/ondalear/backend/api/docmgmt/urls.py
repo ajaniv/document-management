@@ -9,6 +9,10 @@ from ondalear.backend.api.docmgmt import views
 
 router = routers.DefaultRouter()
 
+router.register(r'document-associations',
+                views.DocumentAssociationViewSet,
+                basename='document-association')
+
 router.register(r'auxiliary-documents',
                 views.AuxiliaryDocumentViewSet,
                 basename='auxiliary-document')

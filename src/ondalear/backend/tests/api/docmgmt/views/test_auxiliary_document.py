@@ -6,11 +6,14 @@
 import logging
 
 from ondalear.backend.docmgmt.models import constants, AuxiliaryDocument
+from ondalear.backend.tests.docmgmt.models import factories
 from ondalear.backend.tests.api.docmgmt.views.base_document import (AbstractDocumentApiTest,
                                                                     DocumentFilterTestMixin,
-                                                                    FileUploadMixin,
-                                                                    FileUploadAssertMixin)
+                                                                    DocumentTagFilterTestMixin,
+                                                                    FileUploadAssertMixin,
+                                                                    FileUploadMixin)
 from ondalear.backend.api.docmgmt.views.document import summary_response_fields
+
 
 _logger = logging.getLogger(__name__)
 
@@ -30,11 +33,11 @@ class AuxiliaryDocumentAPIPostTest(AbstractAuxiliaryDocumentApiTest):
     url_name = 'auxiliary-document-list'
 
     def test_post(self):
-        # expect to create document through api
+        # expect to create instance through api
         self.assert_create()
 
     def test_post_client_disabled(self):
-        # expect to fail to create document
+        # expect to fail to create instance
         self.assert_post_client_disabled()
 
 class AuxiliaryDocumentAPIListTest(AbstractAuxiliaryDocumentApiTest):
@@ -98,6 +101,7 @@ class AuxiliaryDocumentFileUploadAPIPostTest(AbstractAuxiliaryDocumnetUploadTest
 class AuxiliaryDocumentFileUploadAPIPutTest(AbstractAuxiliaryDocumnetUploadTest):
     """Put file upload test"""
     url_name = 'auxiliary-document-detail'
+
     def test_put_file_upload(self):
         # expect to update the file
         self.assert_put_file_upload()
@@ -105,6 +109,7 @@ class AuxiliaryDocumentFileUploadAPIPutTest(AbstractAuxiliaryDocumnetUploadTest)
 class AuxiliaryDocumentFileUploadAPIDeleteTest(AbstractAuxiliaryDocumnetUploadTest):
     """Delete file upload test"""
     url_name = 'auxiliary-document-detail'
+
     def test_delete_file_upload(self):
         # expect to delete the document and associated file
         self.assert_delete_file_upload()
@@ -125,3 +130,19 @@ class AuxiliaryDocumentAPIFilterTest(DocumentFilterTestMixin,
                                      AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document list filter test case"""
     url_name = 'auxiliary-document-list'
+
+class AuxiliaryDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
+                                        AbstractAuxiliaryDocumentApiTest):
+    """Auxiliary document tag list filter test case"""
+    url_name = 'auxiliary-document-list'
+    tag_target = constants.CLASSIFICATION_TARGET_AUXILIARY_DOCUMENT
+    document_type = constants.DOCUMENT_TYPE_AUXILIARY
+    document_factory = factories.AuxiliaryDocumentModelFactory
+
+    def setUp(self):
+        """Setup test case
+
+        Setting document tag association for tag related queries
+        """
+        super().setUp()
+        self.prepare()

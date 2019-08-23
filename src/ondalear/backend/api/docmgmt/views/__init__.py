@@ -9,6 +9,7 @@ from ondalear.backend.api.docmgmt.views.classification import (CategoryViewSet,
                                                                DocumentTagViewSet,
                                                                TagViewSet)
 from ondalear.backend.api.docmgmt.views.document import  (AuxiliaryDocumentSummaryViewset,
+                                                          DocumentAssociationViewSet,
                                                           DocumentViewSet,
                                                           ReferenceDocumentSummaryViewset)
 from ondalear.backend.api.docmgmt.views.derived_document import (AuxiliaryDocumentViewSet,

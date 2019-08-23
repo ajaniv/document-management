@@ -49,7 +49,6 @@ class AbstratModelSerializer(RequestContextMixin, serializers.ModelSerializer):
         Need to build the derived data from the request"""
         context = self.build_request_context()
         validated_data.update(context)
-
         return super(AbstratModelSerializer, self).create(validated_data)
 
 

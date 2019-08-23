@@ -4,8 +4,8 @@
 
 
 """
-from copy import deepcopy
 import logging
+from copy import deepcopy
 from django.urls import reverse
 from rest_framework import status
 from ondalear.backend.tests.api.base import AbstractAPITestCase
@@ -35,36 +35,51 @@ class AssertMixin:
             for key in keys:
                 self.assertIsNotNone(data[key], msg=f'unexpectedly None {key}')
 
+    def to_list(self, data):
+        """convert to list if required"""
+        if not isinstance(data, (list,)):
+            return  [data]
+        return data
+
     def assert_response_detail(self, data, expected=None):
         """Assert response detail"""
         # check equality
         expected = expected or self.expected_data()
-        for key, value in expected.items():
-            # @TODO: only handling one level of nesting
-            if isinstance(value, (dict,)):
-                for nested_key in value:
-                    self.assertEqual(data[key][nested_key], value[nested_key])
-            else:
-                self.assertEqual(data[key], expected[key])
+        expected_items = self.to_list(expected)
+        data_items = self.to_list(data)
 
-        # check for not none
-        self.assert_is_set(data, self.response_has_values)
-        for key in self.response_no_values:
-            self.assertIsNone(data[key])
+        for data_item, expected_item in zip(data_items, expected_items):
+            for key, value in expected_item.items():
+                # @TODO: only handling one level of nesting
+                if isinstance(value, (dict,)):
+                    for nested_key in value:
+                        self.assertEqual(data_item[key][nested_key], value[nested_key])
+                else:
+                    self.assertEqual(data_item[key], value)
+
+            # check for not none
+            self.assert_is_set(data_item, self.response_has_values)
+            for key in self.response_no_values:
+                self.assertIsNone(data_item[key])
 
     def assert_short_response(self, data, expected_data):
         """validate short response data"""
-        if len(data) == len(expected_data): # id, creation_time ...
-            for key in expected_data:
-                assert  data[key], f'{key} not set'
-            return True
-        return False
+        data_items = self.to_list(data)
+        expected_items = self.to_list(expected_data)
+
+        for data_item, expected_item in zip(data_items, expected_items):
+            if len(data_item) == len(expected_item): # id, creation_time ...
+                for key in expected_item:
+                    assert  data_item[key], f'{key} not set'
+            else:
+                return False
+        return True
 
     def assert_create(self, expected_status=None, request_data=None, fmt=None):
         """verify create  model instance"""
         expected_status = expected_status or status.HTTP_201_CREATED
-        fmt = fmt or 'json'
         request_data = request_data or self.create_data().copy()
+        fmt = fmt or 'json'
 
         url = reverse(self.create_url_name)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
@@ -89,12 +104,12 @@ class AssertMixin:
 
     def assert_list_item(self, data):
         """assert list item"""
-
         self.assert_response_detail(data)
 
-    def assert_list(self, query_str=None, expected_count=1):
+    def assert_list(self, query_str=None, expected_count=1, documents=None):
         """Verify list processing"""
-        self.assert_create()
+        if not documents:
+            self.assert_create()
         url = reverse(self.url_name)
 
         if query_str:
@@ -124,16 +139,23 @@ class AssertMixin:
             self.assert_list_item(data)
         return response
 
+    def create_and_extract_id(self):
+        """Create instance and extract created object id"""
+        create_data = self.assert_create().data['detail']
+        if isinstance(create_data, (list)):
+            create_data = create_data[0]
+
+        object_id = self.extract_object_id(create_data)
+        return object_id, create_data
+
     def assert_retrieve(self):
         """Verify retrieve operation"""
-        create_data = self.assert_create().data['detail']
-        object_id = self.extract_object_id(create_data)
+        object_id, _ = self.create_and_extract_id()
         url = reverse(self.url_name, args=[object_id])
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
         # make api request
-
         response = self.client.get(url, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
@@ -146,23 +168,16 @@ class AssertMixin:
 
         # verify the detail
         data = response_data['detail']
-
         self.assert_response_detail(data)
 
         return response
 
-    def tweak_put_data(self, put_data):
-        """tweak put data hook"""
-
-    def assert_put(self, attr_name=None, attr_value=None):
+    def assert_put(self, attr_name=None, attr_value=None, expected_status=None):
         """Verify put operation"""
+        expected_status = expected_status or status.HTTP_200_OK
+
         # create the instance
-        created_data = self.assert_create().data
-
-        # parse the response
-        create_detail = created_data['detail']
-        object_id = self.extract_object_id(create_detail)
-
+        object_id, _ = self.create_and_extract_id()
         url = reverse(self.url_name, args=[object_id])
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
@@ -175,10 +190,11 @@ class AssertMixin:
 
         put_data[attr_name] = attr_value
 
-        self.tweak_put_data(put_data)
         response = self.client.put(url, data=put_data, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
+        self.assertEqual(response.status_code, expected_status, f'{response.data}')
+        if response.status_code != status.HTTP_200_OK:
+            return response
         response_data = response.data
 
         # verify the header
@@ -192,17 +208,12 @@ class AssertMixin:
             self.assertEqual(detail[attr_name], attr_value)
         return response
 
-    def assert_patch(self, attr_name=None, attr_value=None):
+    def assert_patch(self, attr_name=None, attr_value=None, expected_status=None):
         """Verify patch request"""
+        expected_status = expected_status or status.HTTP_200_OK
         # create the instance
-        created_data = self.assert_create().data
-
-        # parse the response
-        instance_data = created_data['detail']
-        object_id = self.extract_object_id(instance_data)
-
+        object_id, _ = self.create_and_extract_id()
         url = reverse(self.url_name, args=[object_id])
-
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
         # make api request
@@ -211,8 +222,10 @@ class AssertMixin:
 
         new_document = {attr_name: attr_value}
         response = self.client.patch(url, data=new_document, format='json')
+        self.assertEqual(response.status_code, expected_status, f'{response.data}')
+        if response.status_code != status.HTTP_200_OK:
+            return response
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
         response_data = response.data
 
         # verify the header
@@ -220,31 +233,18 @@ class AssertMixin:
             data=response_data['header'],
             msg='Update request successfully processed.')
 
-         # verify the detail
+        # verify the detail
         detail = response_data['detail']
-
-        if self.assert_short_response(detail, self.short_update_response_fields):
-            return response
-
-        # @TODO: handles only one level nesting
-        if isinstance(attr_value, (dict,)):
-            for key, value in attr_value.items():
-                self.assertEqual(detail[key], value)
-        else:
+        if not self.assert_short_response(detail, self.short_update_response_fields):
             self.assertEqual(detail[attr_name], attr_value)
         return response
+
 
     def assert_delete(self):
         """assert delete"""
         # create the instance
-        created_data = self.assert_create().data
-
-        # parse the response
-        instance_data = created_data['detail']
-        object_id = self.extract_object_id(instance_data)
-
+        object_id, _ = self.create_and_extract_id()
         url = reverse(self.url_name, args=[object_id])
-
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
         # make api request
@@ -260,6 +260,32 @@ class AssertMixin:
 
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, f'{response.data}')
+
+        return response
+
+    def assert_delete_many(self, object_ids=None):
+        """assert delete many instances"""
+        if object_ids is None:
+            # create the instance
+            object_id, _ = self.create_and_extract_id()
+            object_ids = [object_id]
+
+        url = reverse(self.url_name)
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+
+        # make api request
+        response = self.client.post(url, data=object_ids, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, f'{response.data}')
+        response_data = response.data
+
+        # verify the header
+        self.assert_response_header(
+            data=response_data['header'],
+            msg='Delete request successfully processed.')
+
+        self.assertEqual(response_data['detail']['count_deleted'], len(object_ids))
 
         return response
 

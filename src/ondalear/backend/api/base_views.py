@@ -206,12 +206,18 @@ class AbstractModelViewSet(DRFMixin, PermissionsMixin,
 
     def _create_response_detail(self, request, serializer):
         """build create request response detail"""
+        def build_item(source):
+            """build time data"""
+            return dict(id=source['id'],
+                        uuid=source['uuid'],
+                        creation_time=source['creation_time'],
+                        version=source['version'])
         if self._short_response(request):
             data = serializer.data
-            detail = dict(id=data['id'],
-                          uuid=data['uuid'],
-                          creation_time=data['creation_time'],
-                          version=data['version'])
+            if isinstance(data, (list)):
+                detail = [build_item(item) for item in data]
+            else:
+                detail = build_item(data)
         else:
             detail = serializer.data
         return detail
@@ -233,8 +239,8 @@ class AbstractModelViewSet(DRFMixin, PermissionsMixin,
 
         Called on POST request for collection endpoint
         """
-        serializer = self.get_serializer(data=request.data)
-
+        data = request.data
+        serializer = self.get_serializer(data=data, many=isinstance(data, list))
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)

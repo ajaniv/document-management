@@ -11,4 +11,5 @@ from ondalear.backend.api.docmgmt.serializers.classification import (CategorySer
 from ondalear.backend.api.docmgmt.serializers.derived_document import (AuxiliaryDocumentSerializer,
                                                                        ReferenceDocumentSerializer)
 from ondalear.backend.api.docmgmt.serializers.document import (DocumentSerializer,
+                                                               DocumentAssociationSerializer,
                                                                DocumentSummarySerializer)

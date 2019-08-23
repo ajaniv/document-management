@@ -41,7 +41,7 @@ class TagSerializer(AbstractClassificationModelSerializer):
 document_tag_fields = ('client', 'document', 'tag')
 
 class DocumentTagSerializer(AbstratModelSerializer):
-    """Document  tag association serializer class"""
+    """Document tag association serializer class"""
 
     class Meta(AbstratModelSerializer.Meta):
         """Meta class"""

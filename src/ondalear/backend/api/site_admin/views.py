@@ -9,6 +9,7 @@ from rest_framework import permissions
 
 from ondalear.backend.docmgmt.models import Client, ClientUser
 from ondalear.backend.api.base_views import AbstractModelViewSet
+from ondalear.backend.api.constants import ANALYSIS_REQUIRED
 from ondalear.backend.api.site_admin.serializers import (UserSerializer, GroupSerializer,
                                                          ClientSerializer, ClientUserSerializer)
 
@@ -36,7 +37,7 @@ class AbstractSiteAdminViewSet(AbstractModelViewSet):
     # @TODO: figure out whether create, update, delete are to be supported using API
     def _raise_exception(self):
         """raise exception"""
-        raise NotImplementedError('Further analysis is required')
+        raise NotImplementedError(ANALYSIS_REQUIRED)
 
     def create(self, request, *args, **kwargs):
         """Create an instance.

@@ -7,15 +7,19 @@ import logging
 
 from rest_framework import viewsets
 
-from ondalear.backend.docmgmt.models import Document
+from ondalear.backend.docmgmt.models import Document, DocumentAssociation
 from ondalear.backend.api.base_views import (DRFMixin,
                                              DRFListModelMixin,
                                              AbstractModelViewSet,
                                              PermissionsMixin)
-from ondalear.backend.api.docmgmt.serializers import DocumentSerializer
+
+from ondalear.backend.api.docmgmt.serializers import (DocumentSerializer,
+                                                      DocumentAssociationSerializer)
 from ondalear.backend.api.docmgmt.views.queries import (AuxiliaryDocumentSummaryQueryMixin,
+                                                        DocumentAssociationQueryMixin,
                                                         DocumentQueryMixin,
                                                         ReferenceDocumentSummaryQueryMixin)
+from ondalear.backend.api.docmgmt.views.base import AssociationViewSet
 
 _logger = logging.getLogger(__name__)
 
@@ -23,6 +27,7 @@ _logger = logging.getLogger(__name__)
 
 class DocumentViewSet(DocumentQueryMixin, AbstractModelViewSet):
     """Document view set"""
+
 
 summary_response_fields = (
     'category', 'creation_time', 'creation_user', 'is_deleted', 'is_enabled',
@@ -67,3 +72,11 @@ class ReferenceDocumentSummaryViewset(
 
     Fetch a list of reference document with a limited set of fields
     """
+
+
+class DocumentAssociationViewSet(AssociationViewSet,                # pylint: disable=abstract-method
+                                 DocumentAssociationQueryMixin,
+                                 AbstractModelViewSet):
+    """Document->document association view class"""
+    queryset = DocumentAssociation.objects.all().order_by('-update_time')
+    serializer_class = DocumentAssociationSerializer

@@ -5,6 +5,7 @@
 
 """
 API_VERSION = 1
-STATUS_OK = "OK"
-STATUS_ERROR = "ERROR"
-UNKNOWN_USER = "*unknown*"
+STATUS_OK = 'OK'
+STATUS_ERROR = 'ERROR'
+UNKNOWN_USER = '*unknown*'
+ANALYSIS_REQUIRED = 'Further analysis is required'

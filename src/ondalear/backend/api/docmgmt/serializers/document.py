@@ -4,7 +4,7 @@
 
 """
 import logging
-from ondalear.backend.docmgmt.models import Document
+from ondalear.backend.docmgmt.models import Document, DocumentAssociation
 from ondalear.backend.api.base_serializers import AbstratModelSerializer
 
 
@@ -25,7 +25,7 @@ class DocumentSerializer(AbstratModelSerializer):
         """Meta class"""
         model = Document
         fields = AbstratModelSerializer.Meta.fields + document_fields
-        read_only_fields = AbstratModelSerializer.Meta.fields + ('client', 'mime_type',)
+        read_only_fields = AbstratModelSerializer.Meta.fields + ('client', 'mime_type', 'tags')
 
 
 class DocumentSummarySerializer(AbstratModelSerializer):
@@ -36,3 +36,14 @@ class DocumentSummarySerializer(AbstratModelSerializer):
         model = Document
         fields = AbstratModelSerializer.Meta.fields + ('category', 'client', 'description',
                                                        'name', 'tags', 'title')
+
+document_association_fields = ('client', 'from_document', 'to_document', 'purpose')
+
+class DocumentAssociationSerializer(AbstratModelSerializer):
+    """Document association serializer class"""
+
+    class Meta(AbstratModelSerializer.Meta):
+        """Meta class"""
+        fields = AbstratModelSerializer.Meta.fields + document_association_fields
+        read_only_fields = AbstratModelSerializer.Meta.fields + ('client',)
+        model = DocumentAssociation
