@@ -7,7 +7,6 @@
 import os
 import logging
 
-from unittest import skip
 from django.conf import settings
 from django.core.files import File
 from django.core.exceptions import ValidationError
@@ -187,11 +186,6 @@ class DerivedDocumentModelTestMixin:
     def test_content_upload_set(self):
         # expect to fail to save as both content and upload are not set
         self.assert_content_upload_set()
-
-    @skip('removed unique upload field from derived document')
-    def test_duplicate_upload(self):
-        # expect to fail to save as upload(file path) exists
-        self.assert_duplicate_upload()
 
 
 class AbstractDerivedDocumentModelTest(DerivedDocumentCRUDMixin,

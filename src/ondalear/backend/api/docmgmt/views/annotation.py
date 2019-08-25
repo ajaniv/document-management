@@ -11,8 +11,9 @@ from ondalear.backend.api.docmgmt.serializers import (AnnotationSerializer,
                                                       DocumentAnnotationSerializer)
 from ondalear.backend.api.docmgmt.views.queries import (AnnotationQueryMixin,
                                                         DocumentAnnotationQueryMixin)
+from ondalear.backend.api.docmgmt.views.base import AssociationViewSet
 
-# pylint: disable=too-many-ancestors
+# pylint: disable=too-many-ancestors,abstract-method
 
 _logger = logging.getLogger(__name__)
 
@@ -23,7 +24,9 @@ class AnnotationViewSet(AnnotationQueryMixin, AbstractModelViewSet):
     serializer_class = AnnotationSerializer
 
 
-class DocumentAnnotationViewSet(DocumentAnnotationQueryMixin, AbstractModelViewSet):
+class DocumentAnnotationViewSet(AssociationViewSet,
+                                DocumentAnnotationQueryMixin,
+                                AbstractModelViewSet):
     """Document annotation association view class"""
     queryset = DocumentAnnotation.objects.all().order_by('-update_time')
     serializer_class = DocumentAnnotationSerializer

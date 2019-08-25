@@ -9,6 +9,7 @@ from ondalear.backend.docmgmt.models import constants, ReferenceDocument
 from ondalear.backend.api.docmgmt.views.document import summary_response_fields
 from ondalear.backend.tests.docmgmt.models import factories
 from ondalear.backend.tests.api.docmgmt.views.base_document import (AbstractDocumentApiTest,
+                                                                    DocumentAnnotationMixin,
                                                                     DocumentFilterTestMixin,
                                                                     DocumentTagFilterTestMixin,
                                                                     FileUploadMixin,
@@ -153,15 +154,7 @@ class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumen
     def setUp(self):
         """Setup test case"""
         super().setUp()
-        purpose = constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION
-        ref_doc, aux_doc = self.create_linked_documents()
-        defaults = self.create_defaults()
-        doc_association = factories.DocumentAssociationModelFactory(from_document=ref_doc.document,
-                                                                    to_document=aux_doc.document,
-                                                                    purpose=purpose,
-                                                                    **defaults)
-        # association will be deleted when document is deleted
-        self.doc_association = doc_association
+        self.prepare()
 
 
     def test_list(self):
@@ -170,3 +163,14 @@ class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumen
         response = self.assert_list(documents=self.ref_doc)
         # verify that the linked document is returned and has the expected id
         self.assertEqual(response.data['detail'][0]['documents'], [self.aux_doc.document.id])
+
+
+class DocumentAnnotationListTest(DocumentAnnotationMixin, AbstractReferenceDocumentApiTest):
+    """Document annotation list test"""
+    url_name = 'reference-document-list'
+    document_factory = factories.ReferenceDocumentModelFactory
+
+    def setUp(self):
+        """Setup test case"""
+        super().setUp()
+        self.prepare()

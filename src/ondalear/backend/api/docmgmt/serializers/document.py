@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 
 
 document_fields = (
-    'client', 'category', 'description', 'documents', 'document_type',
+    'annotations', 'client', 'category', 'description', 'documents', 'document_type',
     'language', 'mime_type', 'name', 'tags', 'title')
 
 

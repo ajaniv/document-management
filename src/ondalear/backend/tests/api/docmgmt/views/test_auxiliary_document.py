@@ -6,13 +6,14 @@
 import logging
 
 from ondalear.backend.docmgmt.models import constants, AuxiliaryDocument
-from ondalear.backend.tests.docmgmt.models import factories
-from ondalear.backend.tests.api.docmgmt.views.base_document import (AbstractDocumentApiTest,
-                                                                    DocumentFilterTestMixin,
-                                                                    DocumentTagFilterTestMixin,
-                                                                    FileUploadAssertMixin,
-                                                                    FileUploadMixin)
 from ondalear.backend.api.docmgmt.views.document import summary_response_fields
+
+from ondalear.backend.tests.docmgmt.models import factories
+from ondalear.backend.tests.api.docmgmt.views.base_document import (
+    AbstractDocumentApiTest, DocumentAnnotationMixin,
+    DocumentFilterTestMixin, DocumentTagFilterTestMixin,
+    FileUploadAssertMixin, FileUploadMixin)
+
 
 
 _logger = logging.getLogger(__name__)
@@ -144,5 +145,15 @@ class AuxiliaryDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
 
         Setting document tag association for tag related queries
         """
+        super().setUp()
+        self.prepare()
+
+class DocumentAnnotationListTest(DocumentAnnotationMixin, AbstractAuxiliaryDocumentApiTest):
+    """Document annotation list test"""
+    url_name = 'auxiliary-document-list'
+    document_factory = factories.AuxiliaryDocumentModelFactory
+
+    def setUp(self):
+        """Setup test case"""
         super().setUp()
         self.prepare()

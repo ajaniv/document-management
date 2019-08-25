@@ -242,3 +242,13 @@ class AbstractAPITestCase(APITestCase):
         self.assertEqual(response_data['detail'], {})
 
         return response
+
+    def create_defaults(self):
+        """instance creation defaults"""
+        client = self.ondalear_client
+        user = self.user
+
+        defaults = dict(
+            client=client, update_user=user,
+            effective_user=user, creation_user=user)
+        return defaults

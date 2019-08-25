@@ -169,7 +169,7 @@ class DerivedDocumentQueryMixin(AbstractQueryMixin):
         # fetching associated tags for all documents as a separate query
         # @TODO: limit the fields returned
         qs = model_class.objects.prefetch_related(
-            'document__tags', 'document__documents').select_related(
+            'document__annotations', 'document__documents', 'document__tags').select_related(
                 'document').filter(q).order_by('-document__update_time')
         return qs
 

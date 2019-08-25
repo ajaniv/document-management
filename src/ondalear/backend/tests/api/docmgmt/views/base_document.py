@@ -268,16 +268,6 @@ class AbstractDocumentApiTest(DocumentAssertMixin, AbstractDocMgmtAPITestCase):
         self.created_models.extend([category])
 
 
-    def create_defaults(self):
-        """instance creation defaults"""
-        client = self.ondalear_client
-        user = self.user
-
-        defaults = dict(
-            client=client, update_user=user,
-            effective_user=user, creation_user=user)
-        return defaults
-
 class DocumentFilterTestMixin:
     """Document filter test mixin class"""
 
@@ -324,6 +314,38 @@ class DocumentFilterTestMixin:
 class DocumentTagFilterTestMixin:
     """Document tag filter test mixin class"""
 
+    def create_tags(self, defaults):
+        tag = factories.TagModelFactory(name='tag_1',
+                                        target=self.tag_target,
+                                        domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
+                                        **defaults)
+        # created to verify multiple tag support
+        tag_dummy = factories.TagModelFactory(name='dummy_tag',
+                                              target=self.tag_target,
+                                              domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
+                                              **defaults)
+        self.tag = tag
+        self.tag_dummy = tag_dummy
+        self.created_models.extend([tag, tag_dummy])
+        return tag, tag_dummy
+
+    def create_document(self, defaults):
+        """create document"""
+        # prepare the document data so that response comparison work
+        create_request_data = deepcopy(self.create_request_data)
+        doc_name = 'document_tag_1'
+        document_data = create_request_data['document']
+        document_data['name'] = doc_name
+
+        # cannot create with category which is not an instance
+        category = document_data.pop('category')
+        document = factories.DocumentModelFactory(
+            document_type=self.document_type,
+            category=self.category,
+            **document_data, **defaults)
+        document_data['category'] = category
+        return document, create_request_data
+
     def prepare(self):
         """prepare for test case execuition"""
         defaults = self.create_defaults()
@@ -347,38 +369,6 @@ class DocumentTagFilterTestMixin:
         self.create_request_data = create_request_data
         self.created_models.extend([doc1.document])
 
-    def create_tags(self, defaults):
-        tag = factories.TagModelFactory(name='tag_1',
-                                        target=self.tag_target,
-                                        domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
-                                        **defaults)
-        # created to verify multiple tag support
-        tag_dummy = factories.TagModelFactory(name='dummy_tag',
-                                              target=self.tag_target,
-                                              domain=constants.CLASSIFICATION_DOMAIN_GENERAL,
-                                              **defaults)
-        self.tag = tag
-        self.tag_dummy = tag_dummy
-        self.created_models.extend([tag, tag_dummy])
-        return tag, tag_dummy
-
-    def create_document(self, defaults):
-        """create reference document"""
-        # prepare the document data so that response comparison work
-        create_request_data = deepcopy(self.create_request_data)
-        doc_name = 'document_tag_1'
-        document_data = create_request_data['document']
-        document_data['name'] = doc_name
-
-        # cannot create with category which is not an instance
-        category = document_data.pop('category')
-        document = factories.DocumentModelFactory(
-            document_type=self.document_type,
-            category=self.category,
-            **document_data, **defaults)
-        document_data['category'] = category
-        return document, create_request_data
-
     def test_tags_exact(self):
         # expect to fetch document list
         self.assert_tags_exact()
@@ -395,11 +385,10 @@ class DocumentTagFilterTestMixin:
 class LinkedDocumentsMixin:
     """Linked documents mixin class"""
 
-    def create_linked_documents(self):
-        client = self.ondalear_client
-        user = self.user
-        defaults = dict(client=client, creation_user=user, update_user=user, effective_user=user)
+    def create_linked_documents(self, defaults=None):
+        """create linked documents"""
 
+        defaults = defaults or self.create_defaults()
         # populating the ref document with data to ensure that the verification aftr the
         #   request does not fail.
         create_data = self.create_request_data
@@ -423,3 +412,60 @@ class LinkedDocumentsMixin:
         self.aux_doc = aux_doc
         self.ref_doc = ref_doc
         return ref_doc, aux_doc
+
+    def prepare(self):
+        defaults = self.create_defaults()
+
+        ref_doc, aux_doc = self.create_linked_documents(defaults)
+
+        purpose = constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION
+        doc_association = factories.DocumentAssociationModelFactory(from_document=ref_doc.document,
+                                                                    to_document=aux_doc.document,
+                                                                    purpose=purpose,
+                                                                    **defaults)
+        # association will be deleted when document is deleted
+        self.doc_association = doc_association
+
+        return ref_doc, aux_doc, doc_association
+
+class DocumentAnnotationMixin:
+    """Document annotation mixin class"""
+
+    def prepare(self):
+        """create document annotation test environment"""
+        defaults = self.create_defaults()
+
+        create_data = self.create_request_data
+        if create_data:
+            doc_data = self.create_request_data['document']
+            content = create_data['content']
+        else:
+            doc_data = dict(name='annotation_doc',
+                            title='annotation doc title',
+                            description='annotation doc desc')
+            content = 'annotation data content'
+        underlying_doc = factories.DocumentModelFactory(name=doc_data['name'],
+                                                        title=doc_data['title'],
+                                                        description=doc_data['description'],
+                                                        **defaults)
+        containing_doc = self.document_factory(content=content, document=underlying_doc)
+        annotation = factories.AnnotationModelFactory(name='annotation_1', **defaults)
+        document_annotation = factories.DocumentAnnotationModelFactory(document=underlying_doc,
+                                                                       annotation=annotation,
+                                                                       **defaults)
+        # when underlying doc is deleted, the associated containing doc and document
+        #   annotation will be deleted
+        self.created_models.extend([underlying_doc, annotation])
+        self.containing_doc = containing_doc
+        self.document_annotation = document_annotation
+        return document_annotation
+
+    def test_list(self):
+        # expect to list documents through api
+
+        response = self.assert_list(documents=self.containing_doc)
+        # verify that the associated annotation is returned and has the expected id
+
+        self.assertEqual(
+            response.data['detail'][0]['annotations'],
+            [self.document_annotation.annotation.id])

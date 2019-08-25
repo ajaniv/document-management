@@ -6,32 +6,33 @@
 """
 import logging
 from rest_framework import status
+
+from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.api.constants import ANALYSIS_REQUIRED
-from ondalear.backend.docmgmt.models import constants, DocumentTag
+
 from ondalear.backend.tests.docmgmt.models import factories
 from .base import AbstractDocMgmtAPITestCase
 
 logger = logging.getLogger(__name__)
 
 # pylint: disable=no-member,missing-docstring,too-many-ancestors
+_factory_class = factories.DocumentTagModelFactory
 
 class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
     """Base document tag  api test"""
     create_url_name = 'document-tag-list'
-    factory_class = factories.DocumentTagModelFactory
-    model_class = DocumentTag
 
+    factory_class = _factory_class
+    model_class = factories.model_class(_factory_class)
     create_request_data = []
-
     response_no_values = tuple()
 
     def setUp(self):
         """Setup testcase"""
         super().setUp()
-        client = self.ondalear_client
-        user = self.user
+
         target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
-        defaults = dict(client=client, creation_user=user, update_user=user, effective_user=user)
+        defaults = self.create_defaults()
         tag1 = factories.TagModelFactory(
             name='tag_1', parent=None, target=target, **defaults)
         doc1 = factories.DocumentModelFactory(
