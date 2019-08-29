@@ -1,11 +1,12 @@
 ## API
 ### core
 * Determine if uploaded file exists in file system so that user can be provided heads up before clobbering file
-* Provide end point for hierarchical tag and category fetch
 * Determine if effective user is required
+* Determine if uuid is required, adding value
+* Delete request does not return count of objects deleted, not consistent with delete-many.  
 
 ### Authenticaiton
-* Only simple token based authentication is supported.  Extend to JWT, google, etc
+* Only simple DRF token based authentication is supported.  Extend to JWT, oath2(i.e google), etc
 
 ### Site Admin
 * Responsibility is not clear at this time, and whether a separate UI tool (non django admin) is required for the
@@ -21,6 +22,7 @@
 
 ## Models
 * Determine if there is a need for custom User model or whether ClientUser is sufficient
+* Database queries have not been optimized.
 
 ## Unit test
 * It is not clear whether all database instances created are being deleted by underlying Django test framework.
