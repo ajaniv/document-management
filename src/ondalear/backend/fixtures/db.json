@@ -105,6 +105,26 @@
         "documentannotation"
       ],
       [
+        "add_documentassociation",
+        "docmgmt",
+        "documentassociation"
+      ],
+      [
+        "change_documentassociation",
+        "docmgmt",
+        "documentassociation"
+      ],
+      [
+        "delete_documentassociation",
+        "docmgmt",
+        "documentassociation"
+      ],
+      [
+        "view_documentassociation",
+        "docmgmt",
+        "documentassociation"
+      ],
+      [
         "add_documenttag",
         "docmgmt",
         "documenttag"
@@ -815,7 +835,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$39hJN24RQKOW$DcV/Di4wLC3m4MhyZlg4ys6GNRm1+RsalL+24k/Ziy4=",
-    "last_login": "2019-08-07T20:26:27.367Z",
+    "last_login": "2019-08-27T20:22:33.412Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -831,8 +851,8 @@
 {
   "model": "auth.user",
   "fields": {
-    "password": "pbkdf2_sha256$150000$R3RUieeHzKkt$QjVspzaQ+IaEszya7+Y0NZjk9zpGbaylHUZzwYSDHYo=",
-    "last_login": null,
+    "password": "pbkdf2_sha256$150000$UgsfoLA0EZFA$Q65DbxtkqSITSSBkzTewzdWIVx971479IZL2naRw3kw=",
+    "last_login": "2019-08-29T13:20:00.706Z",
     "is_superuser": false,
     "username": "client_1_user_1",
     "first_name": "Client_1_user_1_first",
@@ -920,6 +940,16 @@
   }
 },
 {
+  "model": "authtoken.token",
+  "pk": "565dadc6de02c8659cb2d3cf089ef5e337ccd6bf",
+  "fields": {
+    "user": [
+      "client_1_user_1"
+    ],
+    "created": "2019-08-29T13:20:00.705Z"
+  }
+},
+{
   "model": "docmgmt.clientuser",
   "pk": 1,
   "fields": {
@@ -946,8 +976,7 @@
       "client_1_user_1"
     ],
     "phone": null,
-    "description": "",
-    "login_count": 0
+    "description": ""
   }
 },
 {
@@ -977,8 +1006,7 @@
       "client_2_user_1"
     ],
     "phone": null,
-    "description": "",
-    "login_count": 0
+    "description": ""
   }
 },
 {
@@ -1008,8 +1036,7 @@
       "sys_client_1_user_1"
     ],
     "phone": null,
-    "description": "",
-    "login_count": 0
+    "description": ""
   }
 },
 {
