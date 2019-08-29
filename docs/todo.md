@@ -3,7 +3,12 @@
 * Determine if uploaded file exists in file system so that user can be provided heads up before clobbering file
 * Determine if effective user is required
 * Determine if uuid is required, adding value
-* Delete request does not return count of objects deleted, not consistent with delete-many.  
+* Delete request does not return count of objects deleted, not consistent with delete-many.
+* Delete many request takes a simple list.  It does not take a dict with object ids as a key.
+* Associations do not support put and patch requests.  It is expected that they are deleted
+  and re-created.  This needs to be visited.
+* Should file upload have separate end point, to avoid multi-part form limitation of handling
+  nested structures?
 
 ### Authenticaiton
 * Only simple DRF token based authentication is supported.  Extend to JWT, oath2(i.e google), etc
