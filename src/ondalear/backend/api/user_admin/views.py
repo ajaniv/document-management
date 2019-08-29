@@ -55,6 +55,14 @@ def update_last_login(user):
     user.last_login = timezone.now()
     user.save(update_fields=['last_login'])
 
+def delete_token(user, log=True):
+    """Delete token for user"""
+    try:
+        user.auth_token.delete()
+    except (AttributeError, ObjectDoesNotExist):
+        if log:
+            _logger.warning('failed to delete auth token: %s', user.username)
+
 # pylint: disable=attribute-defined-outside-init
 class UserLoginView(DRFMixin, GenericAPIView):
     """
@@ -83,7 +91,9 @@ class UserLoginView(DRFMixin, GenericAPIView):
 
         Only called if the user is active
         """
+
         self.user = self.serializer.validated_data['user']
+        delete_token(self.user, log=False)
         if getattr(settings, "REST_USE_JWT", False):
             self.token = jwt_encode(self.user)
         else:
@@ -200,10 +210,7 @@ class UserLogoutView(DRFMixin, APIView):
     def logout(self, request):  # pylint: disable=no-self-use
         """Handle logout"""
         username = request.user.username or constants.UNKNOWN_USER
-        try:
-            request.user.auth_token.delete()
-        except (AttributeError, ObjectDoesNotExist):
-            _logger.warning('failed to delete auth token: %s', username)
+        delete_token(request.user)
 
         if getattr(settings, 'REST_SESSION_LOGIN', False):
             django_logout(request)

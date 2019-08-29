@@ -76,7 +76,7 @@ class TagAPIDeleteTest(ClassificationDeleteTestMixin, TagApiTest):
 class TagAPIHierarchyTest(HierarchyMixin, TagApiTest):
     """Tag hierarchy test case"""
 
-    url_name = 'tag-hierarchy'
+    url_name = 'tag-hierarchy-list'
 
     def test_hierarchy(self):
         # expect to fetch classification list

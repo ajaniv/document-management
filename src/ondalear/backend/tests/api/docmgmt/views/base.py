@@ -277,7 +277,7 @@ class AssertMixin:
         # make api request
         response = self.client.post(url, data=object_ids, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, f'{response.data}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
         response_data = response.data
 
         # verify the header

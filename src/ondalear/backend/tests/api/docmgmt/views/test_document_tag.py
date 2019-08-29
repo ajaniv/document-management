@@ -114,7 +114,7 @@ class DocumentTagAPIDeleteTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIDeleteManyTest(AbstractDocumentTagApiTest):
     """Document tag delete many test case"""
 
-    url_name = 'document-tag-delete-many'
+    url_name = 'document-tag-delete-many-list'
 
     def test_delete_many(self):
         # expect to delete many instances

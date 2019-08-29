@@ -5,20 +5,24 @@
 """
 import logging
 from collections import defaultdict
-from rest_framework.decorators import action
+from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 
 from ondalear.backend.docmgmt.models import Category, DocumentTag, Tag
 from ondalear.backend.api import constants
-from ondalear.backend.api.base_views import response_header, AbstractModelViewSet
+from ondalear.backend.api.base_views import (response_header,
+                                             AbstractModelViewSet,
+                                             DRFMixin,
+                                             PermissionsMixin)
 from ondalear.backend.api.docmgmt.serializers import (CategorySerializer,
                                                       DocumentTagSerializer,
                                                       TagSerializer)
 
 from ondalear.backend.api.docmgmt.views.queries import (ClassificationQueryMixin,
                                                         DocumentTagQueryMixin)
-from ondalear.backend.api.docmgmt.views.base import AssociationViewSet
+from ondalear.backend.api.docmgmt.views.base import (AbstractDeleteManyAssociationsView,
+                                                     AssociationUpdateViewSetMixin)
 
 # pylint: disable=too-many-ancestors
 
@@ -88,31 +92,56 @@ class HierarchyMixin:
 
         return Response(data=data, status=status.HTTP_200_OK)
 
-class TagViewSet(ClassificationQueryMixin, HierarchyMixin, AbstractModelViewSet):
+class TagViewSet(ClassificationQueryMixin, AbstractModelViewSet):
     """Tag view class"""
     queryset = Tag.objects.all().order_by('-update_time')
     serializer_class = TagSerializer
 
-    @action(detail=False)
-    def hierarchy(self, request):
-        """handle tag hierarchy request"""
+
+class TagHierarchyViewSet(HierarchyMixin, ClassificationQueryMixin,
+                          DRFMixin, PermissionsMixin,
+                          viewsets.GenericViewSet):
+    """Tag hierarchy view set"""
+    queryset = Tag.objects.all().order_by('-update_time')
+    serializer_class = TagSerializer
+
+    def list(self, request, *args, **kwargs):           # pylint: disable=unused-argument
+        """Fetch instance list
+
+        Build tag hiearchy hierarchy
+        """
         return self.build_hierarchy(request)
 
-class DocumentTagViewSet(AssociationViewSet,            # pylint: disable=abstract-method
+class DocumentTagViewSet(AssociationUpdateViewSetMixin,            # pylint: disable=abstract-method
                          DocumentTagQueryMixin,
                          AbstractModelViewSet):
     """Document tag association view class"""
     queryset = DocumentTag.objects.all().order_by('-update_time')
     serializer_class = DocumentTagSerializer
 
+class DocumentTagDeleteView(DocumentTagQueryMixin,
+                            AbstractDeleteManyAssociationsView):
+    """Document tag association delete many view class"""
+    queryset = DocumentTag.objects.all().order_by('-update_time')
+    serializer_class = DocumentTagSerializer
 
 
-class CategoryViewSet(ClassificationQueryMixin, HierarchyMixin, AbstractModelViewSet):
+class CategoryViewSet(ClassificationQueryMixin, AbstractModelViewSet):
     """Category view class"""
     queryset = Category.objects.all().order_by('-update_time')
     serializer_class = CategorySerializer
 
-    @action(detail=False)
-    def hierarchy(self, request):
-        """handle category hierarchy request"""
+
+class CategoryHierarchyViewSet(HierarchyMixin, ClassificationQueryMixin,
+                               DRFMixin, PermissionsMixin,
+                               viewsets.GenericViewSet):
+    """Category hierarchy view set"""
+    queryset = Category.objects.all().order_by('-update_time')
+    serializer_class = CategorySerializer
+
+    def list(self, request, *args, **kwargs):           # pylint: disable=unused-argument
+        """Fetch instance list
+
+        Build tag hiearchy hierarchy
+        """
         return self.build_hierarchy(request)

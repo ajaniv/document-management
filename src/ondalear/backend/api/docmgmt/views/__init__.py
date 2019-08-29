@@ -4,12 +4,17 @@
 
 """
 from ondalear.backend.api.docmgmt.views.annotation import (AnnotationViewSet,
-                                                           DocumentAnnotationViewSet)
+                                                           DocumentAnnotationViewSet,
+                                                           DocumentAnnotationDeleteView)
 from ondalear.backend.api.docmgmt.views.classification import (CategoryViewSet,
+                                                               CategoryHierarchyViewSet,
                                                                DocumentTagViewSet,
-                                                               TagViewSet)
+                                                               DocumentTagDeleteView,
+                                                               TagViewSet,
+                                                               TagHierarchyViewSet)
 from ondalear.backend.api.docmgmt.views.document import  (AuxiliaryDocumentSummaryViewset,
                                                           DocumentAssociationViewSet,
+                                                          DocumentAssociationDeleteView,
                                                           DocumentViewSet,
                                                           ReferenceDocumentSummaryViewset)
 from ondalear.backend.api.docmgmt.views.derived_document import (AuxiliaryDocumentViewSet,

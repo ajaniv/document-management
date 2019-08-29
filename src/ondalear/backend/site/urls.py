@@ -41,8 +41,8 @@ urlpatterns = [
 # @TODO: revisit these two urls before pushing out to stage, integ, prod, may be dev only
 if CURRENT_ENV in (DEV_ENV, LOCAL_ENV):
     urlpatterns += [
-        path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-        path('rest-auth/', include('rest_auth.urls'))
+        #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+        #path('rest-auth/', include('rest_auth.urls'))
     ]
     urlpatterns += [
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

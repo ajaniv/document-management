@@ -25,6 +25,7 @@ class ExpiringTokenAuthentication(TokenAuthentication):
 
         if token.created < utc_now - timedelta(hours=settings.TOKEN_EXPIRY):
             _logger.warning('token for user % has expired', user.username)
+            token.delete()
             raise AuthenticationFailed('Token has expired')
 
         return user, token

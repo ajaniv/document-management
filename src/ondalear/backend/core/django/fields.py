@@ -5,7 +5,6 @@
 The *fields* module is a collection of Django model fields utilities
 designed to foster common field usage and facilitate configuration changes.
 """
-from __future__ import absolute_import
 import os
 import uuid
 import inspect

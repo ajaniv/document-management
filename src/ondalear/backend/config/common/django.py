@@ -145,7 +145,7 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'ondalear.backend.core.django.expiring_token.ExpiringTokenAuthentication'
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -172,5 +172,6 @@ SWAGGER_SETTINGS = {
 
 REST_SESSION_LOGIN = False
 POST_PUT_REQUEST_SHORT_RESPONSE = True
+TOKEN_EXPIRY = 12 # hours for token expiry
 
 SITE_ID = 1

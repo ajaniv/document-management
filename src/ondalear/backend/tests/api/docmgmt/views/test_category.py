@@ -74,7 +74,7 @@ class CategoryAPIDeleteTest(ClassificationDeleteTestMixin, CategoryApiTest):
 class CategoryAPIHierarchyTest(HierarchyMixin, CategoryApiTest):
     """Category hierarchy test case"""
 
-    url_name = 'category-hierarchy'
+    url_name = 'category-hierarchy-list'
 
     def test_hierarchy(self):
         # expect to fetch classification list

@@ -108,7 +108,7 @@ class DocumentAnnotationAPIDeleteTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIDeleteManyTest(AbstractDocumentAnnotationApiTest):
     """Document annotation delete many test case"""
 
-    url_name = 'document-annotation-delete-many'
+    url_name = 'document-annotation-delete-many-list'
 
     def test_delete_many(self):
         # expect to delete many instances

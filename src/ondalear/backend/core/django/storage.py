@@ -4,7 +4,6 @@
 
 Django storage utilities and classes.
 """
-from __future__ import absolute_import
 import os
 import ntpath  #  support non unix file upload
 import logging

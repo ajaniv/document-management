@@ -19,7 +19,8 @@ from ondalear.backend.api.docmgmt.views.queries import (AuxiliaryDocumentSummary
                                                         DocumentAssociationQueryMixin,
                                                         DocumentQueryMixin,
                                                         ReferenceDocumentSummaryQueryMixin)
-from ondalear.backend.api.docmgmt.views.base import AssociationViewSet
+from ondalear.backend.api.docmgmt.views.base import (AssociationUpdateViewSetMixin,
+                                                     AbstractDeleteManyAssociationsView)
 
 _logger = logging.getLogger(__name__)
 
@@ -73,10 +74,15 @@ class ReferenceDocumentSummaryViewset(
     Fetch a list of reference document with a limited set of fields
     """
 
-
-class DocumentAssociationViewSet(AssociationViewSet,                # pylint: disable=abstract-method
+class DocumentAssociationViewSet(AssociationUpdateViewSetMixin,     # pylint: disable=abstract-method
                                  DocumentAssociationQueryMixin,
                                  AbstractModelViewSet):
     """Document->document association view class"""
+    queryset = DocumentAssociation.objects.all().order_by('-update_time')
+    serializer_class = DocumentAssociationSerializer
+
+class DocumentAssociationDeleteView(DocumentAssociationQueryMixin,
+                                    AbstractDeleteManyAssociationsView):
+    """Document->document association delete many view class"""
     queryset = DocumentAssociation.objects.all().order_by('-update_time')
     serializer_class = DocumentAssociationSerializer

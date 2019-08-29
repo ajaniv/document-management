@@ -109,7 +109,7 @@ class DocumentAssociationAPIDeleteTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIDeleteManyTest(AbstractDocumentAssociationApiTest):
     """Document association delete many test case"""
 
-    url_name = 'document-association-delete-many'
+    url_name = 'document-association-delete-many-list'
 
     def test_delete_many(self):
         # expect to delete many instances
