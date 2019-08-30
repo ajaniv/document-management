@@ -301,17 +301,25 @@ class AbstractModelViewSet(DRFMixin, PermissionsMixin,
             }
         return Response(data=data, status=status.HTTP_200_OK)
 
+    def perform_destroy(self, instance):
+        """delete the instance"""
+        return instance.delete()
+
     def destroy(self, request, *args, **kwargs):
         """Delete an instance
 
         Called on DELETE request
         """
         instance = self.get_object()
-        self.perform_destroy(instance)
+
+        count_deleted = self.perform_destroy(instance)[0]
+        if count_deleted == 0:
+            _logger.warning('failed to deleted instance id: %s of type: %s',
+                            instance.id, instance.__class__)
         data = {
             'header': response_header(msg='Delete request successfully processed.',
                                       username=request.user.username,
                                       api_status=constants.STATUS_OK),
-            'detail': {}
+            'detail': dict(count_deleted=count_deleted)
             }
-        return Response(data=data, status=status.HTTP_204_NO_CONTENT)
+        return Response(data=data, status=status.HTTP_200_OK)

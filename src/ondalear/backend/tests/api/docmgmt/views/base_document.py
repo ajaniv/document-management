@@ -220,7 +220,9 @@ class FileUploadAssertMixin:
 
             # make delete  api request
             response = self.client.delete(url)
-            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, f'{response.data}')
+            self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
+            
+            self.assertEqual(response.data['detail'], dict(count_deleted=2)) # includes underlying
             file_path = uploaded_file_path(
                 self.source_file_name,
                 self.ondalear_client.client_id,

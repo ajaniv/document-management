@@ -28,7 +28,7 @@ class DerivedDocumentViewSet(AbstractModelViewSet):
     def perform_destroy(self, instance):
         """actual instance destroy"""
         # delete the underlying document triggering deletion of derived instance
-        instance.document.delete()
+        return instance.document.delete()
 
     def prepare_update(self, request, *args, **kwargs):
         """prepare update hook for subclassing"""

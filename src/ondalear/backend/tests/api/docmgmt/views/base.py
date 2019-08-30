@@ -240,7 +240,7 @@ class AssertMixin:
         return response
 
 
-    def assert_delete(self):
+    def assert_delete(self, count_deleted=1):
         """assert delete"""
         # create the instance
         object_id, _ = self.create_and_extract_id()
@@ -250,13 +250,15 @@ class AssertMixin:
         # make api request
         response = self.client.delete(url, format='json')
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT, f'{response.data}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
         response_data = response.data
 
         # verify the header
         self.assert_response_header(
             data=response_data['header'],
             msg='Delete request successfully processed.')
+
+        self.assertEqual(response_data['detail'], dict(count_deleted=count_deleted))
 
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, f'{response.data}')

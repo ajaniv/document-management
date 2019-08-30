@@ -85,7 +85,7 @@ class ReferenceDocumentAPIDeleteTest(AbstractReferenceDocumentApiTest):
 
     def test_delete(self):
         # Expect to destroy the document instance
-        self.assert_delete()
+        self.assert_delete(count_deleted=2)
 
 class AbstractReferenceDocumnetUploadTest(FileUploadMixin,
                                           FileUploadAssertMixin,
