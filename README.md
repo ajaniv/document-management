@@ -11,6 +11,7 @@
 
 ### Key functionalal features
 * Create/update/delete/fetch of text documents, both embeded and file based.
+* Document search using date range, name, category, and tag criteria applying 'in', exact match, and range criteria.
 * Association of document with tags and category for classification and search.
 * Annotation of document.
 * Linking of documents.
