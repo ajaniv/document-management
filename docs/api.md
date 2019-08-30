@@ -4,6 +4,8 @@
 * Each of the resources supports POST, PUT, PATCH, GET, and DELETE operations.
 * For the `association` operations, the referenced resources have to be created
   prior to the creation of the association (i.e. DocumentTag, DocumentAnnotation)
+* The snippets for `Tag` endpoints demonstrate a complete set of CRUD samples.  Similar
+  patern can be applied to other resources.
 
 # Implementation decisions
 * Version management will be added as part of content type, and will not require
@@ -392,6 +394,103 @@
   }
 }
 ```
+### Fetch tags user is authorized to access
+#### command
+``` bash
+> curl "http://127.0.0.1:8000/api/docmgmt/tags/crud/" -H "accept: application/json" -H "Authorization: Token c96c187995236955ba06d0bb258019e520e20d45" -H "Content-Type: application/json"  | python3 -m json.too
+```
+#### output
+``` bash
+{
+    "header": {
+        "user": "client_1_user_1",
+        "api_version": 1,
+        "api_status": "OK",
+        "msg": "List request successfully processed.",
+        "pagination": {
+            "count": 1,
+            "next": null,
+            "previous": null
+        }
+    },
+    "detail": [
+        {
+            "creation_time": "2019-08-30T23:00:30.217456Z",
+            "creation_user": 2,
+            "is_deleted": false,
+            "is_enabled": true,
+            "effective_user": 2,
+            "id": 3,
+            "site": 1,
+            "update_user": 2,
+            "update_time": "2019-08-30T23:00:30.217497Z",
+            "uuid": "7573bce5-8f5c-43bf-abdd-e348fde1c337",
+            "version": 1,
+            "client": 1,
+            "description": "curl crated tag",
+            "domain": "general",
+            "name": "curl tag 1",
+            "parent": null,
+            "target": "reference"
+        }
+    ]
+}
+```
+### Fetch tag instance
+#### command
+``` bash
+> curl "http://127.0.0.1:8000/api/docmgmt/tags/crud/3/" -H "accept: application/json" -H "Authorization: Token c96c187995236955ba06d0bb258019e520e20d45" -H "Content-Type: application/json"  | python3 -m json.tool
+```
+#### output
+```bash
+{
+    "header": {
+        "user": "client_1_user_1",
+        "api_version": 1,
+        "api_status": "OK",
+        "msg": "Retrieve request successfully processed."
+    },
+    "detail": {
+        "creation_time": "2019-08-30T23:00:30.217456Z",
+        "creation_user": 2,
+        "is_deleted": false,
+        "is_enabled": true,
+        "effective_user": 2,
+        "id": 3,
+        "site": 1,
+        "update_user": 2,
+        "update_time": "2019-08-30T23:00:30.217497Z",
+        "uuid": "7573bce5-8f5c-43bf-abdd-e348fde1c337",
+        "version": 1,
+        "client": 1,
+        "description": "curl crated tag",
+        "domain": "general",
+        "name": "curl tag 1",
+        "parent": null,
+        "target": "reference"
+    }
+}
+```
+### Delete tag instance
+#### command
+``` bash
+> curl -X DELETE "http://127.0.0.1:8000/api/docmgmt/tags/crud/3/" -H "accept: application/json" -H "Authorization: Token c96c187995236955ba06d0bb258019e520e20d45" -H "Content-Type: application/json"  | python3 -m json.tool
+```
+#### output
+``` bash
+{
+    "header": {
+        "user": "client_1_user_1",
+        "api_version": 1,
+        "api_status": "OK",
+        "msg": "Delete request successfully processed."
+    },
+    "detail": {
+        "count_deleted": 1
+    }
+}
+```
+
 ### Fetch tag hierarcy
 #### command
 ``` bash
