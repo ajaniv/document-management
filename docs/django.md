@@ -27,7 +27,10 @@
 ```> python manage.py dumpdata --natural-foreign --natural-primary --indent 2 --format json --exclude auth.permission --exclude contenttypes --exclude admin.logentry --exclude sessions > db.json```
 
 ### load the database from a prior dump
-`python manage.py loaddata db.json`
+`> python manage.py loaddata db.json`
+
+### show the urls
+`> python manage.py show_urls --format aligned`
 
 ## turn DEBUG on decorator during using test
 `from django.test.utils import override_settings`
