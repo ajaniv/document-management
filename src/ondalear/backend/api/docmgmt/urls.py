@@ -10,57 +10,58 @@ from ondalear.backend.api.docmgmt import views
 
 router = routers.DefaultRouter()
 
-router.register(r'document-association',
+router.register(r'documents/associations/crud',
                 views.DocumentAssociationViewSet,
-                basename='document-association')
+                basename='document-association-crud')
 
-router.register(r'auxiliary-documents',
+router.register(r'documents/auxiliary/crud',
                 views.AuxiliaryDocumentViewSet,
-                basename='auxiliary-document')
-router.register(r'auxiliary-document-summary',
+                basename='auxiliary-document-crud')
+router.register(r'documents/auxiliary/summary',
                 views.AuxiliaryDocumentSummaryViewset,
                 basename='auxiliary-document-summary')
 
-router.register(r'reference-documents',
+router.register(r'documents/reference/crud',
                 views.ReferenceDocumentViewSet,
-                basename='reference-document')
-router.register(r'reference-document-summary',
+                basename='reference-document-crud')
+router.register(r'documents/reference/summary',
                 views.ReferenceDocumentSummaryViewset,
                 basename='reference-document-summary')
 
-router.register(r'tags',
+router.register(r'tags/crud',
                 views.TagViewSet,
-                basename='tag')
-router.register(r'document-tag',
-                views.DocumentTagViewSet,
-                basename='document-tag')
-router.register(r'tags-hiearchy',
+                basename='tag-crud')
+router.register(r'tags/hiearchy',
                 views.TagHierarchyViewSet,
                 basename='tag-hierarchy')
+router.register(r'documents/tags/crud',
+                views.DocumentTagViewSet,
+                basename='document-tag-crud')
 
-router.register(r'categories',
+
+router.register(r'categories/crud',
                 views.CategoryViewSet,
-                basename='category')
-router.register(r'categories-hiearchy',
+                basename='category-crud')
+router.register(r'categories/hiearchy',
                 views.CategoryHierarchyViewSet,
                 basename='category-hierarchy')
 
-router.register(r'annotations',
+router.register(r'annotations/crud',
                 views.AnnotationViewSet,
-                basename='annotation')
-router.register(r'document-annotation',
+                basename='annotation-crud')
+router.register(r'documents/annotations/crud',
                 views.DocumentAnnotationViewSet,
-                basename='document-annotation')
+                basename='document-annotation-crud')
 
 urlpatterns = [
     path('', include(router.urls)),
-    url(r'document-annotation-delete-many/$',
+    url(r'documents/annotations/delete-many/$',
         views.DocumentAnnotationDeleteView.as_view(),
         name='document-annotation-delete-many-list'),
-    url(r'document-association-delete-many/$',
+    url(r'documents/associations/delete-many/$',
         views.DocumentAssociationDeleteView.as_view(),
         name='document-association-delete-many-list'),
-    url(r'document-tag-delete-many/$',
+    url(r'documents/tags/delete-many/$',
         views.DocumentTagDeleteView.as_view(),
         name='document-tag-delete-many-list'),
 ]

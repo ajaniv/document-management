@@ -17,7 +17,7 @@ _factory_class = factories.DocumentAnnotationModelFactory
 
 class AbstractDocumentAnnotationApiTest(AbstractDocMgmtAPITestCase):
     """Base document annotation  api test"""
-    create_url_name = 'document-annotation-list'
+    create_url_name = 'document-annotation-crud-list'
     factory_class = _factory_class
     model_class = factories.model_class(_factory_class)
 
@@ -41,7 +41,7 @@ class AbstractDocumentAnnotationApiTest(AbstractDocMgmtAPITestCase):
 class DocumentAnnotationAPIPostTest(AbstractDocumentAnnotationApiTest):
     """Document annotation post test case"""
 
-    url_name = 'document-annotation-list'
+    url_name = 'document-annotation-crud-list'
 
     def test_post(self):
         # expect to create instance through api
@@ -54,7 +54,7 @@ class DocumentAnnotationAPIPostTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIListTest(AbstractDocumentAnnotationApiTest):
     """Document annotation list test case"""
 
-    url_name = 'document-annotation-list'
+    url_name = 'document-annotation-crud-list'
 
     def test_list(self):
         # expect to fetch instance list through api
@@ -63,7 +63,7 @@ class DocumentAnnotationAPIListTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIRetrieveTest(AbstractDocumentAnnotationApiTest):
     """Document annotation retrieve  test case"""
 
-    url_name = 'document-annotation-detail'
+    url_name = 'document-annotation-crud-detail'
 
     def test_retrieve(self):
         # expect to retrive the  instance
@@ -72,7 +72,7 @@ class DocumentAnnotationAPIRetrieveTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIPutTest(AbstractDocumentAnnotationApiTest):
     """Document annotation put test case"""
 
-    url_name = 'document-annotation-detail'
+    url_name = 'document-annotation-crud-detail'
 
     def test_put(self):
         # expect to fail to update the  instance - update not supported
@@ -85,7 +85,7 @@ class DocumentAnnotationAPIPutTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIPatchTest(AbstractDocumentAnnotationApiTest):
     """Document annotation patch test case"""
 
-    url_name = 'document-annotation-detail'
+    url_name = 'document-annotation-crud-detail'
 
     def test_patch(self):
         # expect to fail to update the instance - update not supported
@@ -98,7 +98,7 @@ class DocumentAnnotationAPIPatchTest(AbstractDocumentAnnotationApiTest):
 class DocumentAnnotationAPIDeleteTest(AbstractDocumentAnnotationApiTest):
     """Document annotation delete test case"""
 
-    url_name = 'document-annotation-detail'
+    url_name = 'document-annotation-crud-detail'
 
     def test_delete(self):
         # expect to delete the instance

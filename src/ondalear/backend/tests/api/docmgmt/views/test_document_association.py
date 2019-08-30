@@ -21,7 +21,7 @@ _factory_class = factories.DocumentAssociationModelFactory
 
 class AbstractDocumentAssociationApiTest(LinkedDocumentsMixin, AbstractDocMgmtAPITestCase):
     """Base document tag  api test"""
-    create_url_name = 'document-association-list'
+    create_url_name = 'document-association-crud-list'
 
     factory_class = _factory_class
     model_class = factories.model_class(_factory_class)
@@ -42,7 +42,7 @@ class AbstractDocumentAssociationApiTest(LinkedDocumentsMixin, AbstractDocMgmtAP
 class DocumentAssociationAPIPostTest(AbstractDocumentAssociationApiTest):
     """Document association post test case"""
 
-    url_name = 'document-association-list'
+    url_name = 'document-association-crud-list'
 
     def test_post(self):
         # expect to create instance through api
@@ -55,7 +55,7 @@ class DocumentAssociationAPIPostTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIListTest(AbstractDocumentAssociationApiTest):
     """Document association list test case"""
 
-    url_name = 'document-association-list'
+    url_name = 'document-association-crud-list'
 
     def test_list(self):
         # expect to fetch document tag list through api
@@ -64,7 +64,7 @@ class DocumentAssociationAPIListTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIRetrieveTest(AbstractDocumentAssociationApiTest):
     """Document association retrieve  test case"""
 
-    url_name = 'document-association-detail'
+    url_name = 'document-association-crud-detail'
 
     def test_retrieve(self):
         # expect to retrive the document tag instance
@@ -73,7 +73,7 @@ class DocumentAssociationAPIRetrieveTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIPutTest(AbstractDocumentAssociationApiTest):
     """Document association put test case"""
 
-    url_name = 'document-association-detail'
+    url_name = 'document-association-crud-detail'
 
     def test_put(self):
         # expect to fail to update the document tag  instance - update not supported
@@ -86,7 +86,7 @@ class DocumentAssociationAPIPutTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIPatchTest(AbstractDocumentAssociationApiTest):
     """Document association patch test case"""
 
-    url_name = 'document-association-detail'
+    url_name = 'document-association-crud-detail'
 
     def test_patch(self):
         # expect to fail to update the document tag  instance - update not supported
@@ -99,7 +99,7 @@ class DocumentAssociationAPIPatchTest(AbstractDocumentAssociationApiTest):
 class DocumentAssociationAPIDeleteTest(AbstractDocumentAssociationApiTest):
     """Document association delete test case"""
 
-    url_name = 'document-association-detail'
+    url_name = 'document-association-crud-detail'
 
     def test_delete(self):
         # expect to delete the instance

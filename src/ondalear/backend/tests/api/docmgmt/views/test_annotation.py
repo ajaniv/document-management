@@ -19,7 +19,7 @@ _logger = logging.getLogger(__name__)
 
 class AnnotationApiTest(AbstractDocMgmtAPITestCase):
     """Base annotation  api test"""
-    create_url_name = 'annotation-list'
+    create_url_name = 'annotation-crud-list'
     factory_class = factories.AnnotationModelFactory
     model_class = Annotation
 
@@ -33,7 +33,7 @@ class AnnotationApiTest(AbstractDocMgmtAPITestCase):
 class AnnotationAPIPostTest(AnnotationApiTest):
     """Annotation post test case"""
 
-    url_name = 'annotation-list'
+    url_name = 'annotation-crud-list'
 
     def test_post(self):
         # expect to create annotation through api
@@ -43,7 +43,7 @@ class AnnotationAPIPostTest(AnnotationApiTest):
 class AnnotationAPIListTest(AnnotationApiTest):
     """Annotation list test case"""
 
-    url_name = 'annotation-list'
+    url_name = 'annotation-crud-list'
 
     def test_list(self):
         # expect to fetch annotation list
@@ -53,7 +53,7 @@ class AnnotationAPIListTest(AnnotationApiTest):
 class AnnotationAPIRetrieveTest(AnnotationApiTest):
     """Annotation retrieve test case"""
 
-    url_name = 'annotation-detail'
+    url_name = 'annotation-crud-detail'
 
     def test_retrieve(self):
         # expect to retrive the annotation instance
@@ -63,7 +63,7 @@ class AnnotationAPIRetrieveTest(AnnotationApiTest):
 class AnnotationPIPutTest(AnnotationApiTest):
     """Annotation put test case"""
 
-    url_name = 'annotation-detail'
+    url_name = 'annotation-crud-detail'
 
     def test_put(self):
         # expect to update the annotation instance
@@ -73,7 +73,7 @@ class AnnotationPIPutTest(AnnotationApiTest):
 class AnnotationAPIPatchTest(AnnotationApiTest):
     """Annotation patch test case"""
 
-    url_name = 'annotation-detail'
+    url_name = 'annotation-crud-detail'
 
     def test_patch(self):
         # expect to patch the annotation instance
@@ -83,7 +83,7 @@ class AnnotationAPIPatchTest(AnnotationApiTest):
 class AnnotationAPIDeleteTest(AnnotationApiTest):
     """Annotation delete test case"""
 
-    url_name = 'annotation-detail'
+    url_name = 'annotation-crud-detail'
 
     def test_delete(self):
         # expect to delete the annotation instance

@@ -23,7 +23,7 @@ _logger = logging.getLogger(__name__)
 
 class AbstractReferenceDocumentApiTest(AbstractDocumentApiTest):
     """Base reference document api test"""
-    create_url_name = 'reference-document-list'
+    create_url_name = 'reference-document-crud-list'
     model_class = ReferenceDocument
 
     category_target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
@@ -33,7 +33,7 @@ class AbstractReferenceDocumentApiTest(AbstractDocumentApiTest):
 class ReferenceDocumentAPIPostTest(AbstractReferenceDocumentApiTest):
     """Reference document post test case"""
 
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
 
     def test_post(self):
         # expect to create document
@@ -45,7 +45,7 @@ class ReferenceDocumentAPIPostTest(AbstractReferenceDocumentApiTest):
 
 class ReferenceDocumentAPIListTest(AbstractReferenceDocumentApiTest):
     """Reference document list test case"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
 
     def test_list(self):
         # expect to list documents through api
@@ -54,7 +54,7 @@ class ReferenceDocumentAPIListTest(AbstractReferenceDocumentApiTest):
 class ReferenceDocumentAPIRetrieveTest(AbstractReferenceDocumentApiTest):
     """Reference document retrieve test case"""
 
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
 
     def test_retrieve(self):
         # Expect to retrive the document instance
@@ -63,7 +63,7 @@ class ReferenceDocumentAPIRetrieveTest(AbstractReferenceDocumentApiTest):
 class ReferenceDocumentAPIPutTest(AbstractReferenceDocumentApiTest):
     """Reference document put test case"""
 
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
 
     def test_put(self):
         # Expect to update the document instance
@@ -72,7 +72,7 @@ class ReferenceDocumentAPIPutTest(AbstractReferenceDocumentApiTest):
 class ReferenceDocumentAPIPatchTest(AbstractReferenceDocumentApiTest):
     """Reference document patch test case"""
 
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
 
     def test_patch(self):
         # Expect to patch the document instance
@@ -81,7 +81,7 @@ class ReferenceDocumentAPIPatchTest(AbstractReferenceDocumentApiTest):
 class ReferenceDocumentAPIDeleteTest(AbstractReferenceDocumentApiTest):
     """Reference document delete test case"""
 
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
 
     def test_delete(self):
         # Expect to destroy the document instance
@@ -94,7 +94,7 @@ class AbstractReferenceDocumnetUploadTest(FileUploadMixin,
 
 class ReferenceDocumentFileUploadAPIPostTest(AbstractReferenceDocumnetUploadTest):
     """Post file upload test"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
 
     def test_post_file_upload(self):
         # expect to load the document
@@ -102,14 +102,14 @@ class ReferenceDocumentFileUploadAPIPostTest(AbstractReferenceDocumnetUploadTest
 
 class ReferenceDocumentFileUploadAPIPutTest(AbstractReferenceDocumnetUploadTest):
     """Put file upload test"""
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
     def test_put_file_upload(self):
         # expect to update the file
         self.assert_put_file_upload()
 
 class ReferenceDocumentFileUploadAPIDeleteTest(AbstractReferenceDocumnetUploadTest):
     """Delete file upload test"""
-    url_name = 'reference-document-detail'
+    url_name = 'reference-document-crud-detail'
     def test_delete_file_upload(self):
         # expect to delete the document and associated file
         self.assert_delete_file_upload()
@@ -128,12 +128,12 @@ class ReferenceDocumentSummaryAPIListTest(AbstractReferenceDocumentApiTest):
 
 class ReferenceDocumentAPIFilterTest(DocumentFilterTestMixin, AbstractReferenceDocumentApiTest):
     """Reference document list filter test case"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
 
 class ReferenceDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
                                         AbstractReferenceDocumentApiTest):
     """Reference document tag list filter test case"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
     tag_target = constants.CLASSIFICATION_TARGET_REFERENCE_DOCUMENT
     document_type = constants.DOCUMENT_TYPE_REFERENCE
     document_factory = factories.ReferenceDocumentModelFactory
@@ -149,7 +149,7 @@ class ReferenceDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
 
 class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumentApiTest):
     """Document association list test with linked documents"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
 
     def setUp(self):
         """Setup test case"""
@@ -167,7 +167,7 @@ class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumen
 
 class DocumentAnnotationListTest(DocumentAnnotationMixin, AbstractReferenceDocumentApiTest):
     """Document annotation list test"""
-    url_name = 'reference-document-list'
+    url_name = 'reference-document-crud-list'
     document_factory = factories.ReferenceDocumentModelFactory
 
     def setUp(self):

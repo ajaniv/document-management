@@ -33,8 +33,8 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/admin/')),
     path('docmgmt/', include('ondalear.backend.docmgmt.urls')),
     path('api/docmgmt/', include('ondalear.backend.api.docmgmt.urls')),
-    path('api/site-admin/', include('ondalear.backend.api.site_admin.urls')),
-    path('api/user-admin/', include('ondalear.backend.api.user_admin.urls')),
+    path('api/admin/site/', include('ondalear.backend.api.site_admin.urls')),
+    path('api/admin/user/', include('ondalear.backend.api.user_admin.urls')),
     path('admin/', admin.site.urls)
 ]
 

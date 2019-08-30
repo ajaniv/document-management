@@ -26,7 +26,7 @@ _logger = logging.getLogger(__name__)
 
 class TagApiTest(AbstractClassificationApiTest):
     """Base tag  api test"""
-    create_url_name = 'tag-list'
+    create_url_name = 'tag-crud-list'
     factory_class = factories.TagModelFactory
     model_class = Tag
 
@@ -40,37 +40,37 @@ class TagApiTest(AbstractClassificationApiTest):
 class TagAPIPostTest(ClassificationPostTestMixin, TagApiTest):
     """Tag post test case"""
 
-    url_name = 'tag-list'
+    url_name = 'tag-crud-list'
 
 
 class TagAPIListTest(ClassificationListTestMixin, TagApiTest):
     """Tag list test case"""
 
-    url_name = 'tag-list'
+    url_name = 'tag-crud-list'
 
 
 class TagAPIRetrieveTest(ClassificationRetrieveTestMixin, TagApiTest):
     """Tag retrieve test case"""
 
-    url_name = 'tag-detail'
+    url_name = 'tag-crud-detail'
 
 
 class TagAPIPutTest(ClassificationPutTestMixin, TagApiTest):
     """Tag put test case"""
 
-    url_name = 'tag-detail'
+    url_name = 'tag-crud-detail'
 
 
 class TagAPIPatchTest(ClassificationPatchTestMixin, TagApiTest):
     """Tag patch test case"""
 
-    url_name = 'tag-detail'
+    url_name = 'tag-crud-detail'
 
 
 class TagAPIDeleteTest(ClassificationDeleteTestMixin, TagApiTest):
     """Tag delete test case"""
 
-    url_name = 'tag-detail'
+    url_name = 'tag-crud-detail'
 
 
 class TagAPIHierarchyTest(HierarchyMixin, TagApiTest):

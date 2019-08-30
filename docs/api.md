@@ -37,14 +37,51 @@
   the relevant permissions have been added (i.e. Document add, change, view, delete)
 * Permissions should not be managed at the individual user level making it a challenge to manage.
 
-
-
+# URL summary
+* A '/' needs to be appended to each url below for actual end point access.
+## Document managment
+``` perl
+/api/docmgmt/annotations/crud
+/api/docmgmt/categories/crud
+/api/docmgmt/categories/hiearchy
+/api/docmgmt/documents/annotations/crud
+/api/docmgmt/documents/associations/crud
+/api/docmgmt/documents/auxiliary/crud
+/api/docmgmt/documents/auxiliary/summary
+/api/docmgmt/documents/reference/crud
+/api/docmgmt/documents/reference/summary
+/api/docmgmt/documents/tags/crud
+/api/docmgmt/tags/crud
+/api/docmgmt/tags/hiearchy
+```
+## Site admin
+``` perl
+/api/admin/site/client-users
+/api/admin/site/clients
+/api/admin/site/groups
+/api/admin/site/users
+```
+## User admin
+``` perl
+/api/admin/user/login                       
+/api/admin/user/logout                      
+/api/admin/user/password/change
+```
+## Other
+``` perl
+/media/<path>
+```
+# Swager url summary
+``` perl
+/redoc             
+/swagger
+``` 
 # User admin API
 * Designed for login, logout, and change password actions.
 ## login
 ### command
 ``` bash
-> curl -X POST   http://localhost:8000/api/user-admin/login/   -H 'Content-Type: application/json' -d '{"username": "client_1_user_1","password": "ondalear123"}' | python3 -m json.tool
+> curl -X POST   http://localhost:8000/api/admin/user/login/   -H 'Content-Type: application/json' -d '{"username": "client_1_user_1","password": "ondalear123"}' | python3 -m json.tool
 ```
 
 ### output
@@ -67,7 +104,7 @@
 ## logout
 ### command
 ``` bash
-> curl -X POST   http://localhost:8000/api/user-admin/logout/  -H 'Authorization: Token 7afee96b63de4996519d43914a1c5c76c7227f65' | python3 -m json.tool
+> curl -X POST   http://localhost:8000/api/admin/user/logout/  -H 'Authorization: Token 7afee96b63de4996519d43914a1c5c76c7227f65' | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -84,7 +121,7 @@
 ```
 
 ### command curl no authorization
-`> curl -X POST   http://localhost:8000/api/user-admin/logout/ | python3 -m json.tool` 
+`> curl -X POST   http://localhost:8000/api/admin/user/logout/ | python3 -m json.tool` 
 ### command curl no authorization output
 ``` bash
 {
@@ -101,7 +138,7 @@
 ## change password 
 ### command
 ``` bash
-> curl -X POST   http://localhost:8000/api/user-admin/password/change/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'   -d '{ "new_password1": "ondalear123","new_password2": "ondalear123"}' | python3 -m json.tool
+> curl -X POST   http://localhost:8000/api/admin/user/password/change/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'   -d '{ "new_password1": "ondalear123","new_password2": "ondalear123"}' | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -123,7 +160,7 @@
 ## fetch users
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/users/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/users/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -154,7 +191,7 @@
 ## fetch the specified user
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/users/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/users/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -176,7 +213,7 @@
 ## fetch groups
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/groups/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/groups/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -203,7 +240,7 @@
 ## fetch the specified group
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/groups/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/groups/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -224,7 +261,7 @@
 ## fetch clients
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/clients/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/clients/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -255,7 +292,7 @@
 ## fetch the specified client
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/clients/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/clients/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -279,7 +316,7 @@
 ## fetch client users
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/client-users/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/client-users/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -309,7 +346,7 @@
 ## fetch the specified client user
 ### command
 ``` bash
-> curl  http://localhost:8000/api/site-admin/client-users/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
+> curl  http://localhost:8000/api/admin/site/client-users/1/  -H 'Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689'   -H 'Content-Type: application/json'  | python3 -m json.tool
 ```
 ### output
 ``` bash
@@ -336,7 +373,7 @@
 ### Create tag instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/tags/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated tag\", \"domain\": \"general\", \"name\": \"curl tag 1\", \"target\": \"reference\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/tags/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated tag\", \"domain\": \"general\", \"name\": \"curl tag 1\", \"target\": \"reference\"}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -358,7 +395,7 @@
 ### Fetch tag hierarcy
 #### command
 ``` bash
-> curl  "http://127.0.0.1:8000/api/docmgmt/tags-hiearchy/" -H "accept: application/json" -H "Authorization: Token cce1a474b062cf94f5a41fec007942ab60d7e0d1" -H "Content-Type: application/json"  | python3 -m json.tool
+> curl  "http://127.0.0.1:8000/api/docmgmt/tags/hiearchy/" -H "accept: application/json" -H "Authorization: Token cce1a474b062cf94f5a41fec007942ab60d7e0d1" -H "Content-Type: application/json"  | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -392,7 +429,7 @@
 ### Create category instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/categories/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated category\", \"domain\": \"general\", \"name\": \"curl category 1\", \"target\": \"reference\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/categories/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated category\", \"domain\": \"general\", \"name\": \"curl category 1\", \"target\": \"reference\"}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -413,7 +450,7 @@
 ### Fetch category hierarchy
 #### command
 ``` bash
-> curl  "http://127.0.0.1:8000/api/docmgmt/categories-hiearchy/" -H "accept: application/json" -H "Authorization: Token cce1a474b062cf94f5a41fec007942ab60d7e0d1" -H "Content-Type: application/json"  | python3 -m json.tool
+> curl  "http://127.0.0.1:8000/api/docmgmt/categories/hiearchy/" -H "accept: application/json" -H "Authorization: Token cce1a474b062cf94f5a41fec007942ab60d7e0d1" -H "Content-Type: application/json"  | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -447,7 +484,7 @@
 ### Create annotation instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/annotations/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated annotation\", \"annotation\": \"some annotation\", \"name\": \"curl annotation 1\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/annotations/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"description\": \"curl crated annotation\", \"annotation\": \"some annotation\", \"name\": \"curl annotation 1\"}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -474,7 +511,7 @@
 ### Create reference document with embeded contents
 #### Command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/reference-documents/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json" -d "{ \"content_type\": \"txt\", \"description\": \"curl created reference document\", \"name\": \"curl reference document\", \"title\": \"curl source document title\", \"content\": \"curl reference document contents\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json" -d "{ \"content_type\": \"txt\", \"description\": \"curl created reference document\", \"name\": \"curl reference document\", \"title\": \"curl source document title\", \"content\": \"curl reference document contents\"}" | python3 -m json.tool
 ```
 #### Output
 ```bash
@@ -497,7 +534,7 @@
 #### command using json
 ``` bash
 > curl \
- -X POST  "http://127.0.0.1:8000/api/docmgmt/reference-documents/" \
+ -X POST  "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/" \
  -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" \
  -H "Accept: application/json" \
  -H "Content-Type: multipart/form-data" \
@@ -525,7 +562,7 @@
 #### command using multi part form
 ``` bash
 > curl \
- -X POST  "http://127.0.0.1:8000/api/docmgmt/reference-documents/" \
+ -X POST  "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/" \
  -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" \
  -H "Accept: application/json" \
  -H "Content-Type: multipart/form-data" \
@@ -554,7 +591,7 @@
 ### Fetch reference document list
 #### Command
 ``` bash
-> curl "http://127.0.0.1:8000/api/docmgmt/reference-documents/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json" | python3 -m json.tool
+> curl "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json" | python3 -m json.tool
 ```
 #### Output
 ```bash
@@ -638,7 +675,7 @@
 * Contents may be embedded or uploaded with a text file.
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/auxiliary-documents/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"content_type\": \"txt\", \"description\": \"curl created auxiliary document\", \"document_type\": \"auxiliary\", \"name\": \"curl auxiliary document\", \"title\": \"Curl auxiliary document title\", \"content\": \"curl auxiliary document contents\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/auxiliary/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"content_type\": \"txt\", \"description\": \"curl created auxiliary document\", \"document_type\": \"auxiliary\", \"name\": \"curl auxiliary document\", \"title\": \"Curl auxiliary document title\", \"content\": \"curl auxiliary document contents\"}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -664,7 +701,7 @@
 ### Create document tag instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-tag/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"document\": 9, \"tag\": 1}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/tags/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"document\": 9, \"tag\": 1}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -686,7 +723,7 @@
 ### fetch list of document tags user is authorized to see
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/document-tag/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/tags/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -725,7 +762,7 @@
 ### Delete set of document tags user is authorized to see
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-tag-delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[10]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/tags/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[10]" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -747,7 +784,7 @@
 ### Create document annotation instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-annotations/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"document\": 9, \"annotation\": 4}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/annotations/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"document\": 9, \"annotation\": 4}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -769,7 +806,7 @@
 ### fetch list of document annotations user is authorized to see
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/document-annotation/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/annotations/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -808,7 +845,7 @@
 ### Delete set of document annotations
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-annotation-delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[5]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/annotations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[5]" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -829,7 +866,7 @@
 ### Create document association instance
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-association/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"from_document\": 9, \"to_document\": 7, \"purpose\": \"question\"}" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/associations/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" -H "Content-Type: application/json"  -d "{ \"from_document\": 9, \"to_document\": 7, \"purpose\": \"question\"}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -851,7 +888,7 @@
 ### fetch list of document association (links) user is authorized to see
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/document-association/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/associations/crud/" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -891,7 +928,7 @@
 ### Delete set of document association
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/document-association-delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[9]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/associations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[9]" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -913,7 +950,7 @@
 * Tag queries support in and exact match.
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/reference-documents/?document__tags__in=1" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/?document__tags__in=1" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -971,7 +1008,7 @@
 * The document name can be part of a list of names (in clause), exact match, or starts witch
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/reference-documents/?document__name=api.md" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/?document__name=api.md" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 * see above
@@ -980,7 +1017,7 @@
 * The category name can be part of a list of names(in clause) or exact match
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/reference-documents/?document__category_name=curl%20category%201" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/?document__category_name=curl%20category%201" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 * see above
@@ -988,7 +1025,7 @@
 * The update time can be specified as greater than, less than, and within a range
 #### command
 ``` bash
-> curl -X GET "http://127.0.0.1:8000/api/docmgmt/reference-documents/?document__update_time__gte=2019-08-27+19:33:19" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
+> curl -X GET "http://127.0.0.1:8000/api/docmgmt/documents/reference/crud/?document__update_time__gte=2019-08-27+19:33:19" -H "accept: application/json" -H "Authorization: Token 305078cfe62d75e09384bb8a83e7fc464b669689" | python3 -m json.tool
 ```
 #### output
 * see above

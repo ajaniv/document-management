@@ -25,7 +25,7 @@ _logger = logging.getLogger(__name__)
 
 class CategoryApiTest(AbstractClassificationApiTest):
     """Base category  api test"""
-    create_url_name = 'category-list'
+    create_url_name = 'category-crud-list'
     factory_class = factories.CategoryModelFactory
     model_class = Category
 
@@ -39,37 +39,37 @@ class CategoryApiTest(AbstractClassificationApiTest):
 class CategoryAPIPostTest(ClassificationPostTestMixin, CategoryApiTest):
     """Category post test case"""
 
-    url_name = 'category-list'
+    url_name = 'category-crud-list'
 
 
 class CategoryAPIListTest(ClassificationListTestMixin, CategoryApiTest):
     """Category list test case"""
 
-    url_name = 'category-list'
+    url_name = 'category-crud-list'
 
 
 class CategoryAPIRetrieveTest(ClassificationRetrieveTestMixin, CategoryApiTest):
     """Category retrieve test case"""
 
-    url_name = 'category-detail'
+    url_name = 'category-crud-detail'
 
 
 class CategoryAPIPutTest(ClassificationPutTestMixin, CategoryApiTest):
     """Category put test case"""
 
-    url_name = 'category-detail'
+    url_name = 'category-crud-detail'
 
 
 class CategoryAPIPatchTest(ClassificationPatchTestMixin, CategoryApiTest):
     """Category patch test case"""
 
-    url_name = 'category-detail'
+    url_name = 'category-crud-detail'
 
 
 class CategoryAPIDeleteTest(ClassificationDeleteTestMixin, CategoryApiTest):
     """Category delete test case"""
 
-    url_name = 'category-detail'
+    url_name = 'category-crud-detail'
 
 class CategoryAPIHierarchyTest(HierarchyMixin, CategoryApiTest):
     """Category hierarchy test case"""

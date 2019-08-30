@@ -22,7 +22,7 @@ _logger = logging.getLogger(__name__)
 
 class AbstractAuxiliaryDocumentApiTest(AbstractDocumentApiTest):
     """Base auxiliary document api test"""
-    create_url_name = 'auxiliary-document-list'
+    create_url_name = 'auxiliary-document-crud-list'
     model_class = AuxiliaryDocument
     tag_target = constants.CLASSIFICATION_TARGET_AUXILIARY_DOCUMENT
     category_target = constants.CLASSIFICATION_TARGET_AUXILIARY_DOCUMENT
@@ -31,7 +31,7 @@ class AbstractAuxiliaryDocumentApiTest(AbstractDocumentApiTest):
 class AuxiliaryDocumentAPIPostTest(AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document post test case"""
 
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
 
     def test_post(self):
         # expect to create instance through api
@@ -43,7 +43,7 @@ class AuxiliaryDocumentAPIPostTest(AbstractAuxiliaryDocumentApiTest):
 
 class AuxiliaryDocumentAPIListTest(AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document list test case"""
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
 
     def test_list(self):
         # expect to fetch document list
@@ -52,7 +52,7 @@ class AuxiliaryDocumentAPIListTest(AbstractAuxiliaryDocumentApiTest):
 class AuxiliaryDocumentAPIRetrieveTest(AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document retrieve test case"""
 
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_retrieve(self):
         # expect to retrive the document instance
@@ -61,7 +61,7 @@ class AuxiliaryDocumentAPIRetrieveTest(AbstractAuxiliaryDocumentApiTest):
 class AuxiliaryDocumentAPIPutTest(AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document put test case"""
 
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_put(self):
         # expect to update the document instance
@@ -70,7 +70,7 @@ class AuxiliaryDocumentAPIPutTest(AbstractAuxiliaryDocumentApiTest):
 class AuxiliaryDocumentAPIPatchTest(AbstractAuxiliaryDocumentApiTest):
     """CrAuxiliaryiteria document patch test case"""
 
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_patch(self):
         # expect to patch the document instance
@@ -79,7 +79,7 @@ class AuxiliaryDocumentAPIPatchTest(AbstractAuxiliaryDocumentApiTest):
 class AuxiliaryDocumentAPIDeleteTest(AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document delete test case"""
 
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_delete(self):
         # expect to delete the document instance
@@ -93,7 +93,7 @@ class AbstractAuxiliaryDocumnetUploadTest(FileUploadMixin,
 
 class AuxiliaryDocumentFileUploadAPIPostTest(AbstractAuxiliaryDocumnetUploadTest):
     """Post file upload test"""
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
 
     def test_post_file_upload(self):
         # expect to load the document
@@ -101,7 +101,7 @@ class AuxiliaryDocumentFileUploadAPIPostTest(AbstractAuxiliaryDocumnetUploadTest
 
 class AuxiliaryDocumentFileUploadAPIPutTest(AbstractAuxiliaryDocumnetUploadTest):
     """Put file upload test"""
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_put_file_upload(self):
         # expect to update the file
@@ -109,7 +109,7 @@ class AuxiliaryDocumentFileUploadAPIPutTest(AbstractAuxiliaryDocumnetUploadTest)
 
 class AuxiliaryDocumentFileUploadAPIDeleteTest(AbstractAuxiliaryDocumnetUploadTest):
     """Delete file upload test"""
-    url_name = 'auxiliary-document-detail'
+    url_name = 'auxiliary-document-crud-detail'
 
     def test_delete_file_upload(self):
         # expect to delete the document and associated file
@@ -130,12 +130,12 @@ class AuxiliaryDocumentSummaryAPIListTest(AbstractAuxiliaryDocumentApiTest):
 class AuxiliaryDocumentAPIFilterTest(DocumentFilterTestMixin,
                                      AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document list filter test case"""
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
 
 class AuxiliaryDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
                                         AbstractAuxiliaryDocumentApiTest):
     """Auxiliary document tag list filter test case"""
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
     tag_target = constants.CLASSIFICATION_TARGET_AUXILIARY_DOCUMENT
     document_type = constants.DOCUMENT_TYPE_AUXILIARY
     document_factory = factories.AuxiliaryDocumentModelFactory
@@ -150,7 +150,7 @@ class AuxiliaryDocumentAPITagFilterTest(DocumentTagFilterTestMixin,
 
 class DocumentAnnotationListTest(DocumentAnnotationMixin, AbstractAuxiliaryDocumentApiTest):
     """Document annotation list test"""
-    url_name = 'auxiliary-document-list'
+    url_name = 'auxiliary-document-crud-list'
     document_factory = factories.AuxiliaryDocumentModelFactory
 
     def setUp(self):

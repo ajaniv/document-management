@@ -20,7 +20,7 @@ _factory_class = factories.DocumentTagModelFactory
 
 class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
     """Base document tag  api test"""
-    create_url_name = 'document-tag-list'
+    create_url_name = 'document-tag-crud-list'
 
     factory_class = _factory_class
     model_class = factories.model_class(_factory_class)
@@ -47,7 +47,7 @@ class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
 class DocumentTagAPIPostTest(AbstractDocumentTagApiTest):
     """Document tag post test case"""
 
-    url_name = 'document-tag-list'
+    url_name = 'document-tag-crud-list'
 
     def test_post(self):
         # expect to create instance through api
@@ -60,7 +60,7 @@ class DocumentTagAPIPostTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIListTest(AbstractDocumentTagApiTest):
     """Document tag list test case"""
 
-    url_name = 'document-tag-list'
+    url_name = 'document-tag-crud-list'
 
     def test_list(self):
         # expect to fetch document tag list through api
@@ -69,7 +69,7 @@ class DocumentTagAPIListTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIRetrieveTest(AbstractDocumentTagApiTest):
     """Document tag retrieve  test case"""
 
-    url_name = 'document-tag-detail'
+    url_name = 'document-tag-crud-detail'
 
     def test_retrieve(self):
         # expect to retrive the document tag instance
@@ -78,7 +78,7 @@ class DocumentTagAPIRetrieveTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIPutTest(AbstractDocumentTagApiTest):
     """Document tag put test case"""
 
-    url_name = 'document-tag-detail'
+    url_name = 'document-tag-crud-detail'
 
     def test_put(self):
         # expect to fail to update the document tag  instance - update not supported
@@ -91,7 +91,7 @@ class DocumentTagAPIPutTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIPatchTest(AbstractDocumentTagApiTest):
     """Document tag patch test case"""
 
-    url_name = 'document-tag-detail'
+    url_name = 'document-tag-crud-detail'
 
     def test_patch(self):
         # expect to fail to update the document tag  instance - update not supported
@@ -104,7 +104,7 @@ class DocumentTagAPIPatchTest(AbstractDocumentTagApiTest):
 class DocumentTagAPIDeleteTest(AbstractDocumentTagApiTest):
     """Document tag delete test case"""
 
-    url_name = 'document-tag-detail'
+    url_name = 'document-tag-crud-detail'
 
     def test_delete(self):
         # expect to delete the instance
