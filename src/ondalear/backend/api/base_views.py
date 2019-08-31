@@ -69,6 +69,15 @@ def api_exception_handler(exc, context):
     return response
 
 
+def delete_response(request, count_deleted):
+    """build delete response"""
+    data = {
+        'header': response_header(msg='Delete request successfully processed.',
+                                  username=request.user.username,
+                                  api_status=constants.STATUS_OK),
+        'detail': dict(count_deleted=count_deleted)
+        }
+    return Response(data=data, status=status.HTTP_200_OK)
 
 class DRFMixin:
     """Django Rest Framework mixin class"""
@@ -314,12 +323,7 @@ class AbstractModelViewSet(DRFMixin, PermissionsMixin,
 
         count_deleted = self.perform_destroy(instance)[0]
         if count_deleted == 0:
-            _logger.warning('failed to deleted instance id: %s of type: %s',
+            _logger.warning('failed to delete instance id: %s of type: %s',
                             instance.id, instance.__class__)
-        data = {
-            'header': response_header(msg='Delete request successfully processed.',
-                                      username=request.user.username,
-                                      api_status=constants.STATUS_OK),
-            'detail': dict(count_deleted=count_deleted)
-            }
-        return Response(data=data, status=status.HTTP_200_OK)
+
+        return delete_response(request, count_deleted)

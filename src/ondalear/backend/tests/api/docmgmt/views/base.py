@@ -265,19 +265,19 @@ class AssertMixin:
 
         return response
 
-    def assert_delete_many(self, object_ids=None):
+    def assert_delete_many(self, resources=None):
         """assert delete many instances"""
-        if object_ids is None:
+        if resources is None:
             # create the instance
             object_id, _ = self.create_and_extract_id()
-            object_ids = [object_id]
+            resources = [object_id]
 
         url = reverse(self.url_name)
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 
         # make api request
-        response = self.client.post(url, data=object_ids, format='json')
+        response = self.client.post(url, data=dict(resources=resources), format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK, f'{response.data}')
         response_data = response.data
@@ -287,7 +287,7 @@ class AssertMixin:
             data=response_data['header'],
             msg='Delete request successfully processed.')
 
-        self.assertEqual(response_data['detail']['count_deleted'], len(object_ids))
+        self.assertEqual(response_data['detail']['count_deleted'], len(resources))
 
         return response
 

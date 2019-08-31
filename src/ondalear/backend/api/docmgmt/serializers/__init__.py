@@ -13,3 +13,4 @@ from ondalear.backend.api.docmgmt.serializers.derived_document import (Auxiliary
 from ondalear.backend.api.docmgmt.serializers.document import (DocumentSerializer,
                                                                DocumentAssociationSerializer,
                                                                DocumentSummarySerializer)
+from ondalear.backend.api.docmgmt.serializers.resource import ResourceListSerializer

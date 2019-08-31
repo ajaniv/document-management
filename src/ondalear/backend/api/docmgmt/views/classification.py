@@ -17,6 +17,7 @@ from ondalear.backend.api.base_views import (response_header,
                                              PermissionsMixin)
 from ondalear.backend.api.docmgmt.serializers import (CategorySerializer,
                                                       DocumentTagSerializer,
+                                                      ResourceListSerializer,
                                                       TagSerializer)
 
 from ondalear.backend.api.docmgmt.views.queries import (ClassificationQueryMixin,
@@ -124,6 +125,8 @@ class DocumentTagDeleteView(DocumentTagQueryMixin,
     """Document tag association delete many view class"""
     queryset = DocumentTag.objects.all().order_by('-update_time')
     serializer_class = DocumentTagSerializer
+    request_serializer_class = ResourceListSerializer
+
 
 
 class CategoryViewSet(ClassificationQueryMixin, AbstractModelViewSet):

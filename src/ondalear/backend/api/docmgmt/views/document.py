@@ -14,7 +14,8 @@ from ondalear.backend.api.base_views import (DRFMixin,
                                              PermissionsMixin)
 
 from ondalear.backend.api.docmgmt.serializers import (DocumentSerializer,
-                                                      DocumentAssociationSerializer)
+                                                      DocumentAssociationSerializer,
+                                                      ResourceListSerializer)
 from ondalear.backend.api.docmgmt.views.queries import (AuxiliaryDocumentSummaryQueryMixin,
                                                         DocumentAssociationQueryMixin,
                                                         DocumentQueryMixin,
@@ -86,3 +87,4 @@ class DocumentAssociationDeleteView(DocumentAssociationQueryMixin,
     """Document->document association delete many view class"""
     queryset = DocumentAssociation.objects.all().order_by('-update_time')
     serializer_class = DocumentAssociationSerializer
+    request_serializer_class = ResourceListSerializer
