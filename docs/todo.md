@@ -9,6 +9,9 @@
   and re-created.  This needs to be visited.
 * Should file upload have separate end point, to avoid multi-part form limitation of handling
   nested structures?
+* Document fetch retrieves the contents of a file, including when it was uploaded and not
+  only when it is embedded.  This needs to be revisited, and consider the web
+  server serving the file using a separate api end point.
 
 ### Authenticaiton
 * Only simple DRF token based authentication is supported.  Extend to JWT, oath2(i.e google), etc
