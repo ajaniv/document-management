@@ -27,6 +27,29 @@ if __name__ == "__main__":
     runner.run(create_suite())
 
 ```
+## coverage
+### run the coverage command
+`> coverage run --source ondalear setup.py test`
+### run the coverage report
+`> coverage report -m`
+
+### sample output
+``` bash
+> coverage report -m
+Name                                                                        Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------------------------------------------
+ondalear/__init__.py                                                            1      0   100%
+ondalear/backend/__init__.py                                                    6      0   100%
+ondalear/backend/api/__init__.py                                                0      0   100%
+ondalear/backend/api/auto_token.py                                             12     12     0%   7-24
+ondalear/back
+...
+...
+...
+```
+
+## check manifest
+`> check-manifest -v`
 
 ## Requires installation of libmagic
 ### Macos
