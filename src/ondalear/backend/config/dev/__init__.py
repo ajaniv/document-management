@@ -12,6 +12,12 @@ from ondalear.backend.config.common.root import *
 from ondalear.backend.config.common.django import *
 from ondalear.backend.config.common.log import *
 
+# SECURITY WARNING: keep the secret key used in production secret!
+DEFAULT_SECRET_KEY = 's@(%n-fg3c$)#%#)#7#9$nudp*2%arq)^_1m0w!!rl!k_&9f##'
+SECRET_KEY = os.getenv(ENV_APP_KEY, DEFAULT_SECRET_KEY)
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 # @TODO: revisit approach to allowed hosts; would require changes for different
 #     docker machine configurations
