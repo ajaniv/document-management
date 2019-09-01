@@ -1,0 +1,2 @@
+recursive-include ondalear *.json
+recursive-include ondalear *.txt

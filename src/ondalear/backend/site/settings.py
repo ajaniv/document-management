@@ -1,5 +1,5 @@
 """
-.. module:: ondalear.backend.settings
+.. module:: ondalear.backend.site.settings
    :synopsis: django top level settings module
 
 Django settings for document project.
