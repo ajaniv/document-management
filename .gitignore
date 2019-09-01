@@ -8,6 +8,9 @@ logs/
 # django
 media/
 
+# python
+.eggs/
+
 # db
 databases/
 db.sql*
