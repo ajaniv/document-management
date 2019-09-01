@@ -861,7 +861,7 @@
 ### Delete set of document tags user is authorized to see
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/tags/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[10]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/tags/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "{\"resources\":[10]}" | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -944,7 +944,7 @@
 ### Delete set of document annotations
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/annotations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[5]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/annotations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "{\"resources\":[10]} | python3 -m json.tool
 ```
 #### output
 ``` bash
@@ -1027,7 +1027,7 @@
 ### Delete set of document association
 #### command
 ``` bash
-> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/associations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json"  -d "[9]" | python3 -m json.tool
+> curl -X POST "http://127.0.0.1:8000/api/docmgmt/documents/associations/delete-many/" -H "accept: application/json" -H "Authorization: Token 565dadc6de02c8659cb2d3cf089ef5e337ccd6bf" -H "Content-Type: application/json" -d "{\"resources\":[10]}" | python3 -m json.tool
 ```
 #### output
 ``` bash
