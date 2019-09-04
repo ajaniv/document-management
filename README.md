@@ -1,9 +1,9 @@
 # document-management
 * Primarily intended to provide a document management platform for text based NLP.
 * This is a multi-phase project:
-  - Text document management backend and API.
-  - AllenNLP based text analysis back end and API.
-  - Front end using react.
+  - Text document management backend and API layer.
+  - Text analytics layer using AllenNLP, Pythorch, and similar frameworks.
+  - Front end using React.
   - Cloud and on-premise hosting.
 * Can be leveraged as a foundation for building a commercial product as well as a learning tool.
 
