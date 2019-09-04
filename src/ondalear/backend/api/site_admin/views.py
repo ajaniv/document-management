@@ -71,19 +71,19 @@ class GroupViewSet(AbstractSiteAdminViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Group.objects.all()
+    queryset = Group.objects.all().order_by('name')
     serializer_class = GroupSerializer
 
 class ClientViewSet(AbstractSiteAdminViewSet):
     """
     API endpoint that allows client to be viewed or edited.
     """
-    queryset = Client.objects.all()
+    queryset = Client.objects.all().order_by('-update_time')
     serializer_class = ClientSerializer
 
 class ClientUserViewSet(AbstractSiteAdminViewSet):
     """
     API endpoint that allows client users to be viewed or edited.
     """
-    queryset = ClientUser.objects.all()
+    queryset = ClientUser.objects.all().order_by('-update_time')
     serializer_class = ClientUserSerializer
