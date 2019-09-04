@@ -1,0 +1,17 @@
+# ide
+.vscode
+
+# logging
+logs/
+*.log
+
+# django
+media/
+
+# python
+.eggs/
+.coverage
+
+# db
+databases/
+db.sql*
