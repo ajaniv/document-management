@@ -5,7 +5,6 @@
 Django log settings file.
 
 """
-from __future__ import absolute_import
 import os
 from ondalear.backend.config.common.root import CURRENT_ENV, LOCAL_ENV, DEV_ENV, LOG_DIR
 
