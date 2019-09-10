@@ -9,7 +9,7 @@ import os
 from os import path
 
 ENV_APP = 'APP_ENV'
-ENV_DEBUG = 'DJANGO_DEBUG'
+ENV_DEBUG = 'BACKEND_DEBUG'
 ENV_APP_KEY = 'DJANGO_SECRET_KEY'
 
 LOCAL_ENV = 'LOCAL'
