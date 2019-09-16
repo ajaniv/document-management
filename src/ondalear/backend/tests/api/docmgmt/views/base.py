@@ -324,9 +324,7 @@ class AbstractDocMgmtAPITestCase(AssertMixin, AbstractAPITestCase):
     def setUpClass(cls):
         """Class setup"""
         super(AbstractDocMgmtAPITestCase, cls).setUpClass()
-        cls.create_group()
-        cls.create_client()
-        cls.create_client_user()
+        cls.create_essential_objects()
 
     def setUp(self):
         """test case level setup"""

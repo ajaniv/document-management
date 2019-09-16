@@ -32,6 +32,7 @@ from ondalear.backend.config.common.root import (CURRENT_ENV, DEV_ENV,
 urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/admin/')),
     path('docmgmt/', include('ondalear.backend.docmgmt.urls')),
+    path('api/analytics/', include('ondalear.backend.api.analytics.urls')),
     path('api/docmgmt/', include('ondalear.backend.api.docmgmt.urls')),
     path('api/admin/site/', include('ondalear.backend.api.site_admin.urls')),
     path('api/admin/user/', include('ondalear.backend.api.user_admin.urls')),

@@ -172,6 +172,13 @@ class AbstractAPITestCase(APITestCase):
                 instance.delete()
         super(AbstractAPITestCase, cls).tearDownClass()
 
+    @classmethod
+    def create_essential_objects(cls):
+        """create essential abstractions"""
+        cls.create_group()
+        cls.create_client()
+        cls.create_client_user()
+
     def setUp(self):
         """Testcase instance setup"""
         self.created_models = []

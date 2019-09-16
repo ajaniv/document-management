@@ -26,7 +26,7 @@ _logger = logging.getLogger(__name__)
 
 def test_data_file_path(file_name):
     """construct test data file path"""
-    data_dir = os.path.join(module_directory(__file__), 'data)
+    data_dir = os.path.join(module_directory(__file__), 'data')
     return os.path.join(data_dir, file_name)
 
 def uploaded_file_path(file_name, client_id, username):

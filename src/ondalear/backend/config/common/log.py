@@ -102,6 +102,16 @@ LOGGING = {
             'handlers': ['log_file', 'console'],
             'level': LOG_LEVEL,
             'propagate': True
+        },
+        'ondalear.backend': {
+            'handlers': ['log_file', 'console'],
+            'level': LOG_LEVEL_INFO,
+            'propagate': True
+        },
+        'ondalear.analytics': {
+            'handlers': ['log_file', 'console'],
+            'level': LOG_LEVEL_INFO,
+            'propagate': True
         }
     }
 }

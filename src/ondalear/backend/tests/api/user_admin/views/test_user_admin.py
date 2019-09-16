@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 
 # pylint: disable=no-member,missing-docstring
 
-class UserAdminApiLoginTests(AbstractAPITestCase):
+class UserAdminApiLoginTest(AbstractAPITestCase):
     """User admin api login test case"""
 
     def test_login(self):
@@ -29,7 +29,7 @@ class UserAdminApiLoginTests(AbstractAPITestCase):
         self.login(expected_status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserAdminApiLogoutTests(AbstractAPITestCase):
+class UserAdminApiLogoutTest(AbstractAPITestCase):
     """user admin api logout test case"""
 
     expected_detail = {}
@@ -48,7 +48,7 @@ class UserAdminApiLogoutTests(AbstractAPITestCase):
         self.logout()
 
 
-class UserAdminApiChangePasswordTests(AbstractAPITestCase):
+class UserAdminApiChangePasswordTest(AbstractAPITestCase):
     """User admin api logout test case"""
 
     expected_detail = {}
