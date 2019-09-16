@@ -16,14 +16,15 @@ from ondalear.backend.api.analytics.serializers import NLPAnalysisSerializer
 
 _logger = logging.getLogger(__name__)
 
+# pylint: disable=too-many-ancestors,no-self-use
 
-class NLPAnalysisView(PermissionsMixin, DRFMixin, 
+class NLPAnalysisView(PermissionsMixin, DRFMixin,
                       DocumentAssociationQueryMixin, GenericAPIView):
     """ NLP Analysis view class
     """
     serializer_class = NLPAnalysisSerializer
 
-    def _build_response_data(self, detail, msg=None, api_status=None): # pylint: disable=unused-argument,no-self-use
+    def _build_response_data(self, detail, msg=None, api_status=None): # pylint: disable=unused-argument
         """build response data"""
         msg = msg or 'Analysis request successfully processed.'
         api_status = api_status or constants.STATUS_OK
@@ -46,7 +47,7 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
         return self.analyze(serializer.data)
 
 
-    def analyze(self, request_data):  # pylint: disable=no-self-use
+    def analyze(self, request_data):
         """Handle analysis"""
 
         # prepare model parameters
@@ -60,7 +61,7 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
         model_descriptor = request_data['model_descriptor']
         model_input = request_data['model_input']
         model_params = request_data.get('model_params', default_model_params)
-        processing_instructions = request_data.get('processing_instructions', 
+        processing_instructions = request_data.get('processing_instructions',
                                                    default_processing_instructions)
         service = find(TEXT_ANALYTICS_SERVICE)
         detail = service.analyze(model_descriptor=model_descriptor,

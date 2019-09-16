@@ -7,7 +7,7 @@ import logging
 from rest_framework import serializers
 
 from ondalear.backend.docmgmt.models import DocumentAssociation
-from ondalear.analytics import ALLENNLP_MODEL_FAMILY, ALLENNLP_MODEL_BDAF
+
 
 _logger = logging.getLogger(__name__)
 

@@ -22,7 +22,7 @@ class AbstractService(ABC):
         """return True if service has been initialized and False otherwise"""
         return self.initialized
 
-    def config_file_path(self, file_name):
+    def config_file_path(self, file_name):  # pylint: disable=no-self-use
         """Construct config file path"""
         this_dir = path.dirname(path.realpath(__file__))
         data_dir = path.join(this_dir, 'config')
