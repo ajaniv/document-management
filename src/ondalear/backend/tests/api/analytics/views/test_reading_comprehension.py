@@ -21,6 +21,10 @@ _logger = logging.getLogger(__name__)
 # pylint: disable=no-member,missing-docstring,no-self-use,too-many-ancestors
 
 class AbstractAnalyticsTest(AbstractAPITestCase):
+    """Text analytics base test case class"""
+    model_class = DocumentAssociation
+    url_name = 'analyze'
+
     def assert_response_detail(self, data, expected=None):
         """verify response detail"""
         expected = expected or self.expected_response()
@@ -40,9 +44,12 @@ class AbstractAnalyticsTest(AbstractAPITestCase):
 
         # make api request
         response = self.client.post(url, request_data, format=fmt)
+
+        # verify status
         self.assertEqual(response.status_code, expected_status, f'{response.data}')
         if expected_status != status.HTTP_200_OK:
             return response
+
         response_data = response.data
 
         # verify the header
@@ -93,19 +100,16 @@ TEXT_AUXILIARY = 'How many partially reusable launch systems were developed?'
 class ReadingComprenhensionBDAFTextByValueTest(AbstractAnalyticsTest):
     """Reading comprehension test case.
 
-    Text data for analysis is passed by value
+    BDAF text data for analysis is passed by value
     """
-
-    url_name = 'analyze'
-    model_class = DocumentAssociation
 
     def expected_response(self):
         """return expected response"""
-        keys = ['passage_question_attention', 'span_start_logits', 
-                'span_start_probs', 'span_end_logits', 'span_end_probs', 
+        keys = ['passage_question_attention', 'span_start_logits',
+                'span_start_probs', 'span_end_logits', 'span_end_probs',
                 'best_span', 'best_span_str', 'question_tokens', 'passage_tokens']
         data = {key: None for key in keys}
-        data[MODEL_PRIMARY_OUTPUT_KEY] =  'Two'
+        data[MODEL_PRIMARY_OUTPUT_KEY] = 'Two'
 
         return data
 
@@ -115,6 +119,32 @@ class ReadingComprenhensionBDAFTextByValueTest(AbstractAnalyticsTest):
                                      text_auxiliary=TEXT_AUXILIARY),
                     model_descriptor=dict(model_family=ALLENNLP_MODEL_FAMILY,
                                           model_name=ALLENNLP_MODEL_BDAF))
+
+    def test_by_value(self):
+        # Expect to execute reading comprehension analysis.
+        self.assert_analysis()
+
+class ReadingComprenhensionBDAFNAQNAETTextByValueTest(AbstractAnalyticsTest):
+    """Reading comprehension test case.
+
+    BDAF NAQNAET text data for analysis is passed by value
+    """
+
+    def expected_response(self):
+        """return expected response"""
+        keys = ['loss', 'question_id', 'answer', 'passage_question_attention', 
+                'question_tokens', 'passage_tokens']
+        data = {key: None for key in keys}
+        data[MODEL_PRIMARY_OUTPUT_KEY] = {'answer_type': 'count', 'count': 2}
+
+        return data
+
+    def analysis_data(self):
+        """return analysis data"""
+        return dict(model_input=dict(text_reference=TEXT_REFERENCE,
+                                     text_auxiliary=TEXT_AUXILIARY),
+                    model_descriptor=dict(model_family=ALLENNLP_MODEL_FAMILY,
+                                          model_name=ALLENNLP_MODEL_BDAF_NAQNAET))
 
     def test_by_value(self):
         # Expect to execute reading comprehension analysis.
