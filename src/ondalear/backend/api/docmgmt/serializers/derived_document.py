@@ -40,14 +40,7 @@ class AbstractDerivedDocumentModelSerializer(RequestContextMixin, ModelSerialize
 
     def get_file_contents(self, instance):  # pylint: disable=no-self-use
         """get file contents if file has been uploaded"""
-        data = None
-        if instance.upload:
-            try:
-                with open(instance.upload.path) as input_file:
-                    data = input_file.read()
-            except IOError as ex:
-                _logger.error('invalid file %s exc %s', instance.upload.path, ex)
-        return data
+        return instance.get_file_contents()
 
     def _document_type(self):
         """get document type"""

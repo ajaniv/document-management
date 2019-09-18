@@ -64,6 +64,7 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
         processing_instructions = request_data.get('processing_instructions',
                                                    default_processing_instructions)
         service = find(TEXT_ANALYTICS_SERVICE)
+
         detail = service.analyze(model_descriptor=model_descriptor,
                                  model_params=model_params,
                                  model_input=model_input,
