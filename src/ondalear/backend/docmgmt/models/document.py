@@ -72,7 +72,7 @@ class AbstractDocumentModel(AbstractDocumentManagementModel):
         return self.name
 
 
-_document = "Document"
+_document = 'Document'
 _document_verbose = humanize(underscore(_document))
 
 class Document(AbstractDocumentModel):
@@ -191,7 +191,7 @@ class AbstractDerivedDocumentModel(Model):
             return self.content
         return self.get_file_contents()
 
-_auxiliary_document = "AuxiliaryDocument"
+_auxiliary_document = 'AuxiliaryDocument'
 _auxiliary_document_verbose = humanize(underscore(_auxiliary_document))
 
 class AuxiliaryDocument(AbstractDerivedDocumentModel):
@@ -213,7 +213,7 @@ class AuxiliaryDocument(AbstractDerivedDocumentModel):
         return constants.DOCUMENT_TYPE_AUXILIARY
 
 
-_reference_document = "ReferenceDocument"
+_reference_document = 'ReferenceDocument'
 _reference_document_verbose = humanize(underscore(_reference_document))
 
 class ReferenceDocument(AbstractDerivedDocumentModel):

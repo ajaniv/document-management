@@ -95,7 +95,7 @@ class AbstractClassification(AbstractDocumentManagementModel):
 
         return ' -> '.join(full_path[::-1])
 
-_tag = "Tag"
+_tag = 'Tag'
 _tag_verbose = humanize(underscore(_tag))
 
 class Tag(AbstractClassification):

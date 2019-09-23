@@ -20,7 +20,7 @@ from ondalear.backend.docmgmt.models.base import app_label, AbstractDocumentMana
 _logger = logging.getLogger(__name__)
 
 
-_document_association = "DocumentAssociation"
+_document_association = 'DocumentAssociation'
 _document_association_verbose = humanize(underscore(_document_association))
 
 class DocumentAssociation(AbstractDocumentManagementModel):
