@@ -81,8 +81,9 @@ class DocumentCRUDMixin:
 
         return fetched, annotation
 
-    def assert_doc_to_doc_association(self, from_document):
+    def assert_doc_to_doc_association(self, from_document=None):
         """verify document to document association"""
+        from_document = from_document or self.assert_create(name='from_document')
         # create document  association
         to_document_name = 'to_document'
         to_document = self.assert_create(name=to_document_name)
@@ -99,7 +100,7 @@ class DocumentCRUDMixin:
         for fetched_document in fetched.documents.all():
             self.assertEqual(fetched_document.name, to_document_name)
 
-        return fetched, to_document
+        return fetched, to_document, from_document, document_association
 
     def assert_delete_document(self, document, to_document):
         """verify document deletion"""
@@ -196,7 +197,7 @@ class DocumentModelCRUDTests(DocumentCRUDMixin, AbstractModelTestCase):
     def test_doc_to_doc_association(self):
         # expect to create document -> document association
         document = self.assert_create()
-        fetched, to_document = self.assert_doc_to_doc_association(document)
+        fetched, to_document, _, _ = self.assert_doc_to_doc_association(document)
         deleted = fetched.delete()
         self.assertEqual(deleted[0], 2) # document and the doc association
         deleted = to_document.delete()

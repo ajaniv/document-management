@@ -14,7 +14,8 @@ from django.contrib.sites.models import Site
 from ondalear.backend.core.python.utils import class_name
 from ondalear.backend.core.django.models import AbstractModel
 from ondalear.backend.docmgmt.models import constants
-from ondalear.backend.docmgmt.models import (Annotation,
+from ondalear.backend.docmgmt.models import (AnalysisResults,
+                                             Annotation,
                                              Category,
                                              Client,
                                              ClientUser,
@@ -272,8 +273,25 @@ class DocumentAssociationModelFactory(AbstractModelFactory):
     to_document = None
     purpose = None
     client = factory.SubFactory(ClientModelFactory)
+
     class Meta:
         """Model meta class."""
         abstract = False
         model = DocumentAssociation
         django_get_or_create = ('from_document', 'to_document', 'purpose')
+
+class AnalysisResultsModelFactory(AbstractModelFactory):
+    """Analysis results model factory class"""
+    client = factory.SubFactory(ClientModelFactory)
+    name = 'analysis results'
+    input = dict()
+    output = dict()
+    documents = None
+
+
+    class Meta:
+        """Model meta class."""
+        abstract = False
+        model = AnalysisResults
+        django_get_or_create = ('client', 'name')
+       
