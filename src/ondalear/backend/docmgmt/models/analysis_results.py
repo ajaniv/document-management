@@ -7,11 +7,12 @@ The *analysis_results* module contains analysis results model abstractions.
 """
 import logging
 from inflection import humanize, pluralize, underscore
-from django.utils.translation import ugettext_lazy as _
 from django.db.models import CASCADE
+from django.utils.translation import ugettext_lazy as _
 
-from ondalear.backend.core.django.models import db_table
 from ondalear.backend.core.django import fields
+from ondalear.backend.core.django.models import db_table
+
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.docmgmt.models.client import Client
 from ondalear.backend.docmgmt.models.document_association import DocumentAssociation
@@ -68,6 +69,7 @@ class AnalysisResults(AbstractResultsModel):
 
         # auto assign a name
         if self.documents and not self.name:
+            # pylint: disable=no-member
             self.name = '{}:{}'.format(self.documents.from_document.name,
                                        self.documents.to_document.name)
         return super(AnalysisResults, self).save(force_insert, force_update,
