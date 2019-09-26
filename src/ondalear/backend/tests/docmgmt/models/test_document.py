@@ -6,8 +6,8 @@
 import logging
 
 from ondalear.backend.docmgmt.models import constants
+from ondalear.backend.tests.base_models import AbstractModelTestCase
 from . import factories
-from .base import AbstractModelTestCase
 
 _logger = logging.getLogger(__name__)
 

@@ -4,15 +4,22 @@
 
 """
 import logging
+import rest_framework_filters as filters
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 
+from ondalear.backend.analytics.models import AnalysisResults
 from ondalear.backend.services import find, TEXT_ANALYTICS_SERVICE
 from ondalear.backend.api import constants
-from ondalear.backend.api.base_views import response_header, DRFMixin, PermissionsMixin
+from ondalear.backend.api.base_queries import AbstractQueryMixin
 from ondalear.backend.api.docmgmt.views.queries import DocumentAssociationQueryMixin
-from ondalear.backend.api.analytics.serializers import NLPAnalysisSerializer
+from ondalear.backend.api.base_views import (response_header,
+                                             AbstractModelViewSet,
+                                             DRFMixin,
+                                             PermissionsMixin)
+from ondalear.backend.api.analytics.serializers import (AnalysisResultsSerializer,
+                                                        NLPAnalysisSerializer)
 
 _logger = logging.getLogger(__name__)
 
@@ -73,3 +80,21 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
                             status=status.HTTP_200_OK)
 
         return response
+
+class AnalysisResultsFilter(filters.FilterSet):
+    """AnalysisResults filter class"""
+    class Meta:
+        """Meta class"""
+        model = AnalysisResults
+        fields = {
+            'name': ['exact', 'in', 'startswith']
+        }
+
+class AnalysisResultsQueryMixin(AbstractQueryMixin):
+    """Analysis result query mixin class"""
+    filter_class = AnalysisResultsFilter
+
+class AnalysisResultsViewSet(AnalysisResultsQueryMixin, AbstractModelViewSet):
+    """Analysis result  view set"""
+    queryset = AnalysisResults.objects.all()
+    serializer_class = AnalysisResultsSerializer

@@ -1,5 +1,5 @@
 """
 .. module:: ondalear.backend.docmgmt
-   :synopsis: document management package
+   :synopsis: document management application package
 
 """

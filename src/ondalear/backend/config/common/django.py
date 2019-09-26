@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     ## app
     'ondalear.backend.docmgmt.apps.DocumentManagementConfig',
+    'ondalear.backend.analytics.apps.AnalyticsConfig',
 
     ## deefault django
     'django.contrib.admin',

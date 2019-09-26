@@ -10,6 +10,7 @@ from rest_framework import status
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.api.constants import ANALYSIS_REQUIRED
 
+from ondalear.backend.tests.base_factories import model_class
 from ondalear.backend.tests.docmgmt.models import factories
 from .base import AbstractDocMgmtAPITestCase
 
@@ -23,7 +24,7 @@ class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
     create_url_name = 'document-tag-crud-list'
 
     factory_class = _factory_class
-    model_class = factories.model_class(_factory_class)
+    model_class = model_class(_factory_class)
     create_request_data = []
     response_no_values = tuple()
 

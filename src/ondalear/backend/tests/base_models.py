@@ -9,7 +9,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User, Group
 from django.contrib.sites.models import Site
 
-from ondalear.backend.tests.docmgmt.models import factories
+from . import base_factories as factories
+
 _logger = logging.getLogger(__name__)
 
 # pylint: disable=no-member

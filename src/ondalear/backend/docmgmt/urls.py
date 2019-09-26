@@ -1,6 +1,6 @@
 """
-.. module:: ondalear.backend.urls
-   :synopsis: ondalear server urls  module.
+.. module:: ondalear.backend.docmgmt.urls
+   :synopsis: ondalear docmgmt  urls  module.
 
 """
 from django.urls import path

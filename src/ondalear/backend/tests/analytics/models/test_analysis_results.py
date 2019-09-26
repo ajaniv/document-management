@@ -1,15 +1,17 @@
 """
-.. module:: ondalear.backend.tests.docmgmt.models.test_analysis_results
-   :synopsis: Analysis results model unit test module.
+.. module:: ondalear.backend.tests.analytics.models.test_analysis_results
+   :synopsis: Analytics  model unit test module.
 
 
 """
 import logging
 
-from ondalear.backend.docmgmt.models import AnalysisResults
+from ondalear.backend.analytics.models import AnalysisResults
+from ondalear.backend.tests.docmgmt.models.test_document import DocumentCRUDMixin
+from ondalear.backend.tests.base_models import AbstractModelTestCase
+from ondalear.backend.tests.docmgmt.models.factories import (DocumentAssociationModelFactory,
+                                                             DocumentModelFactory,)
 from . import factories
-from .test_document import DocumentCRUDMixin
-from .base import AbstractModelTestCase
 
 _logger = logging.getLogger(__name__)
 
@@ -17,10 +19,10 @@ _logger = logging.getLogger(__name__)
 
 
 class AnalysisResultsCRUDTests(DocumentCRUDMixin, AbstractModelTestCase):
-    """Client model basic lifecycle test case"""
+    """Analysis results  lifecycle test case"""
 
-    document_factory = factories.DocumentModelFactory
-    doc_to_doc_association_factory = factories.DocumentAssociationModelFactory
+    document_factory = DocumentModelFactory
+    doc_to_doc_association_factory = DocumentAssociationModelFactory
 
     def test_crud(self):
         # expect to create, update, fetch, and delete analysis results

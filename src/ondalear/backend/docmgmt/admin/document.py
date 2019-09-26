@@ -8,8 +8,9 @@ This module contains document admin abstractions.
 import logging
 from django.contrib import admin
 
-from ondalear.backend.core.django.admin import base_model_readonly_fields, AbstractModelAdmin
-from ondalear.backend.docmgmt.admin.base import register
+from ondalear.backend.core.django.admin import (base_model_readonly_fields,
+                                                register,
+                                                AbstractModelAdmin)
 from ondalear.backend.docmgmt.models import  (constants,
                                               Document,
                                               DocumentAnnotation,

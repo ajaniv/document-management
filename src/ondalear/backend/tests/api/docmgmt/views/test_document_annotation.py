@@ -7,6 +7,7 @@
 import logging
 from rest_framework import status
 from ondalear.backend.api.constants import ANALYSIS_REQUIRED
+from ondalear.backend.tests.base_factories import model_class
 from ondalear.backend.tests.docmgmt.models import factories
 from .base import AbstractDocMgmtAPITestCase
 
@@ -19,7 +20,7 @@ class AbstractDocumentAnnotationApiTest(AbstractDocMgmtAPITestCase):
     """Base document annotation  api test"""
     create_url_name = 'document-annotation-crud-list'
     factory_class = _factory_class
-    model_class = factories.model_class(_factory_class)
+    model_class = model_class(_factory_class)
 
     create_request_data = []
 

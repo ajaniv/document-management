@@ -11,6 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from ondalear.backend.tests.base_factories import (GroupFactory, UserFactory)
 from ondalear.backend.tests.docmgmt.models import factories
 
 _logger = logging.getLogger(__name__)
@@ -86,7 +87,7 @@ class AbstractAPITestCase(APITestCase):
                         last_name=cls.last_name,
                         email=cls.email)
         defaults.update(kwargs)
-        user = factories.UserFactory(**defaults)
+        user = UserFactory(**defaults)
         assert user, 'user creation failed'
         # need to force password setting following creation
         user.set_password(cls.password)
@@ -108,7 +109,7 @@ class AbstractAPITestCase(APITestCase):
         else:
             defaults = dict()
         defaults.update(kwargs)
-        group = factories.GroupFactory(**defaults)
+        group = GroupFactory(**defaults)
         assert group, 'group creation failed'
         return group
 

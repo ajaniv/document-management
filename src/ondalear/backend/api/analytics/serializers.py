@@ -6,6 +6,8 @@
 import logging
 from rest_framework import serializers
 
+from ondalear.backend.analytics.models import AnalysisResults
+from ondalear.backend.api.base_serializers import AbstratModelSerializer
 from ondalear.backend.docmgmt.models import DocumentAssociation
 
 
@@ -71,3 +73,19 @@ class NLPAnalysisSerializer(serializers.Serializer):
     class Meta:
         """Meta class"""
         model = DocumentAssociation
+
+analysis_results_fields = (
+    'client', 'description', 'documents', 'input', 'name', 'output')
+
+
+class AnalysisResultsSerializer(AbstratModelSerializer):
+    """Analysis results serializer class.
+    """
+    input = serializers.JSONField()
+    output = serializers.JSONField()
+
+    class Meta(AbstratModelSerializer.Meta):
+        """Meta class"""
+        model = AnalysisResults
+        fields = AbstratModelSerializer.Meta.fields + analysis_results_fields
+        read_only_fields = AbstratModelSerializer.Meta.fields + ('client', 'input', 'output')

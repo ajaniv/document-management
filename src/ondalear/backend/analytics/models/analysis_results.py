@@ -1,8 +1,8 @@
 """
-.. module:: ondalear.backend.document.models.analysis_results
-   :synopsis: ondalear backend  models results  module.
+.. module:: ondalear.backend.analytics.models.analysis_results
+   :synopsis: ondalear backend analysis results  module.
 
-The *analysis_results* module contains analysis results model abstractions.
+
 
 """
 import logging
@@ -15,13 +15,13 @@ from ondalear.backend.core.django.models import db_table
 
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.docmgmt.models.client import Client
-from ondalear.backend.docmgmt.models.document_association import DocumentAssociation
-from ondalear.backend.docmgmt.models.base import app_label, AbstractDocumentManagementModel
+from ondalear.backend.docmgmt.models import DocumentAssociation
+from ondalear.backend.analytics.models.base import app_label, AbstractAnalyticsModel
 
 
 _logger = logging.getLogger(__name__)
 
-class AbstractResultsModel(AbstractDocumentManagementModel):
+class AbstractResultsModel(AbstractAnalyticsModel):
     """Base results model class
     """
     input = fields.json_field(blank=False, null=False)
@@ -35,7 +35,7 @@ class AbstractResultsModel(AbstractDocumentManagementModel):
                                            max_length=constants.DESCRIPTION_FIELD_MAX_LENGTH)
 
 
-    class Meta(AbstractDocumentManagementModel.Meta):
+    class Meta(AbstractAnalyticsModel.Meta):
         """Meta class definition"""
         abstract = True
 

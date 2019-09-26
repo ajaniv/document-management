@@ -5,7 +5,6 @@
 This package contains server model abstractions.
 
 """
-from ondalear.backend.docmgmt.models.analysis_results import AnalysisResults
 from ondalear.backend.docmgmt.models.annotation import Annotation
 from ondalear.backend.docmgmt.models.classification import Tag, Category
 from ondalear.backend.docmgmt.models.client import Client, ClientUser
