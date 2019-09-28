@@ -5,6 +5,26 @@
     "name": "ClientOneGroup",
     "permissions": [
       [
+        "add_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "change_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "delete_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "view_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
         "add_annotation",
         "docmgmt",
         "annotation"
@@ -193,6 +213,26 @@
     "name": "ClientTwoGroup",
     "permissions": [
       [
+        "add_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "change_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "delete_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "view_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
         "add_annotation",
         "docmgmt",
         "annotation"
@@ -361,6 +401,26 @@
     "name": "SysGroupOne",
     "permissions": [
       [
+        "add_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "change_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "delete_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "view_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
         "add_annotation",
         "docmgmt",
         "annotation"
@@ -528,6 +588,26 @@
   "fields": {
     "name": "StaffGroup",
     "permissions": [
+      [
+        "add_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "change_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "delete_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
+      [
+        "view_analysisresults",
+        "analytics",
+        "analysisresults"
+      ],
       [
         "add_group",
         "auth",
@@ -835,7 +915,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$39hJN24RQKOW$DcV/Di4wLC3m4MhyZlg4ys6GNRm1+RsalL+24k/Ziy4=",
-    "last_login": "2019-08-27T20:22:33.412Z",
+    "last_login": "2019-09-27T23:08:08.967Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -852,7 +932,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$UgsfoLA0EZFA$Q65DbxtkqSITSSBkzTewzdWIVx971479IZL2naRw3kw=",
-    "last_login": "2019-08-29T13:20:00.706Z",
+    "last_login": "2019-08-27T20:22:33.412Z",
     "is_superuser": false,
     "username": "client_1_user_1",
     "first_name": "Client_1_user_1_first",
@@ -873,7 +953,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$9bl3QH6JWdYM$1P22RK9YeiYwFJyF1lWiVFiM6B2ZIOqCzDc0kbJ0/MI=",
-    "last_login": null,
+    "last_login": "2019-08-27T20:22:33.412Z",
     "is_superuser": false,
     "username": "client_2_user_1",
     "first_name": "client_2_user_1_first",
@@ -894,7 +974,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$TV05xT6r71uI$m9LZdNuDtkBFf54iU/at5AkLhYCVm+v/3O+lUwsSNE0=",
-    "last_login": null,
+    "last_login": "2019-08-27T20:22:33.412Z",
     "is_superuser": false,
     "username": "sys_client_1_user_1",
     "first_name": "sys_client_1_user_1_first",
@@ -915,7 +995,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$150000$rLmy1FmtpFoO$Geszfz5VHjZ7unpqdGpHQzQq166PQDGzRLRjVVDkxLM=",
-    "last_login": "2019-08-10T15:24:15Z",
+    "last_login": "2019-08-27T20:22:33.412Z",
     "is_superuser": false,
     "username": "staff",
     "first_name": "staff_first",
@@ -937,16 +1017,6 @@
   "fields": {
     "domain": "example.com",
     "name": "example.com"
-  }
-},
-{
-  "model": "authtoken.token",
-  "pk": "565dadc6de02c8659cb2d3cf089ef5e337ccd6bf",
-  "fields": {
-    "user": [
-      "client_1_user_1"
-    ],
-    "created": "2019-08-29T13:20:00.705Z"
   }
 },
 {
