@@ -18,7 +18,7 @@ _analysis_results_fields = ('client', 'name', 'description', 'input', 'output', 
 class AnalysisResultsAdmin(AbstractModelAdmin):
     """AnalysisResults model admin class.
     """
-    list_display = AbstractModelAdmin.list_display + ('client_id', 'name')
+    list_display = AbstractModelAdmin.list_display + ('name',)
     fieldsets = (
         ('Analysis results',
          {'fields': _analysis_results_fields}),
