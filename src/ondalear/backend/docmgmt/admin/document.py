@@ -93,7 +93,7 @@ class DocumentAnnotationAdmin(AbstractModelAdmin):
     ) + AbstractModelAdmin.field_sets()
 
 
-_document_association_fields = ('from_document', 'to_document', 'purpose')
+_document_association_fields = ('client', 'from_document', 'to_document', 'purpose')
 
 class DocumentAssociationAdmin(AbstractModelAdmin):
     """Document  association admin class"""
