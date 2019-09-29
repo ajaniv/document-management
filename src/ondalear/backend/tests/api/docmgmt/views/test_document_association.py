@@ -11,7 +11,7 @@ from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.api.constants import ANALYSIS_REQUIRED
 from ondalear.backend.tests.base_factories import model_class
 from ondalear.backend.tests.docmgmt.models import factories
-from .base import AbstractDocMgmtAPITestCase
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase
 from .base_document import LinkedDocumentsMixin
 
 logger = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 _factory_class = factories.DocumentAssociationModelFactory
 
-class AbstractDocumentAssociationApiTest(LinkedDocumentsMixin, AbstractDocMgmtAPITestCase):
+class AbstractDocumentAssociationApiTest(LinkedDocumentsMixin, AbstractModelViewsetTestCase):
     """Base document tag  api test"""
     create_url_name = 'document-association-crud-list'
 

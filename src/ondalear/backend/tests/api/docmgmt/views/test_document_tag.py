@@ -12,14 +12,14 @@ from ondalear.backend.api.constants import ANALYSIS_REQUIRED
 
 from ondalear.backend.tests.base_factories import model_class
 from ondalear.backend.tests.docmgmt.models import factories
-from .base import AbstractDocMgmtAPITestCase
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase
 
 logger = logging.getLogger(__name__)
 
 # pylint: disable=no-member,missing-docstring,too-many-ancestors
 _factory_class = factories.DocumentTagModelFactory
 
-class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
+class AbstractDocumentTagApiTest(AbstractModelViewsetTestCase):
     """Base document tag  api test"""
     create_url_name = 'document-tag-crud-list'
 

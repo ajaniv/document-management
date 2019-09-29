@@ -175,9 +175,11 @@ class DocumentAnnotationModelFactory(AbstractModelFactory):
 
 class DocumentAssociationModelFactory(AbstractModelFactory):
     """Document  association model factory class"""
-    from_document = None
-    to_document = None
-    purpose = None
+    from_document = factory.SubFactory(DocumentModelFactory,
+                                       document_type=constants.DOCUMENT_TYPE_REFERENCE)
+    to_document = factory.SubFactory(DocumentModelFactory,
+                                     document_type=constants.DOCUMENT_TYPE_AUXILIARY)
+    purpose = constants.DOCUMENT_ASSOCIATION_PURPOSE_QUESTION
     client = factory.SubFactory(ClientModelFactory)
 
     class Meta:
