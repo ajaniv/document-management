@@ -186,6 +186,13 @@ class ReadingComprenhensionBDAFByValueTest(AbstractReadingComphrensionBDAFTest):
         # Expect to execute reading comprehension analysis.
         self.assert_analysis()
 
+    def test_by_value_with_caching(self):
+        # Expect to execute reading comprehension analysis and cache the results
+        request_data = self.analysis_data()
+        request_data['processing_instructions'] = dict(use_cache=True,
+                                                       analysis_name='reading_comprehension')
+        self.assert_analysis(request_data=request_data)
+
 class ReadingComprenhensionBDAFByReferenceTest(AssociatedDocumenteMixin,
                                                AbstractReadingComphrensionBDAFTest):
     """Reading comprehension content by reference test case.

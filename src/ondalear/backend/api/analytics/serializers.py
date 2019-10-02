@@ -6,6 +6,7 @@
 import logging
 from rest_framework import serializers
 
+from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.analytics.models import AnalysisResults
 from ondalear.backend.api.base_serializers import AbstratModelSerializer
 from ondalear.backend.docmgmt.models import DocumentAssociation
@@ -20,22 +21,23 @@ class ModelInputSerializer(serializers.Serializer):
     text_auxiliary = serializers.CharField(required=False)
     resource_id = serializers.IntegerField(min_value=1, required=False)
 
+    class Meta:
+        """Meta class"""
+        fields = ('text_reference', 'text_auxiliary', 'resource_id')
+
     def validate(self, attrs):
         """
         Check that instance is properly configured.
         """
         if not attrs or len(attrs) == 3:
             raise serializers.ValidationError(
-                "text_reference and text_auxiliary or resource_id must be defined")
+                'text_reference and text_auxiliary or resource_id must be defined')
         if not 'resource_id' in attrs:
             if not 'text_reference' in attrs or not 'text_auxiliary' in attrs:
                 raise serializers.ValidationError(
-                    "text_reference and text_auxiliary must be defined")
+                    'text_reference and text_auxiliary must be defined')
         return attrs
 
-    class Meta:
-        """Meta class"""
-        fields = ('text_reference', 'text_auxiliary', 'resource_id')
 
 class ModelDescriptorSerializer(serializers.Serializer):
     """Model descriptor serializer"""
@@ -57,11 +59,24 @@ class ModelParamsSerializer(serializers.Serializer):
 class ProcessingInstructionsSerializer(serializers.Serializer):
     """Processing instructions serializer"""
     use_cache = serializers.BooleanField(default=False)
+    force_analysis = serializers.BooleanField(default=False)
     save_results = serializers.BooleanField(default=False)
+    analysis_name = serializers.CharField(max_length=constants.NAME_FIELD_MAX_LENGTH,
+                                          min_length=None, allow_blank=False, allow_null=True)
 
     class Meta:
         """Meta class"""
-        fields = ('use_cache', 'save_results')
+        fields = ('analysis_name', 'force_analysis', 'save_results', 'use_cache')
+
+    def validate(self, attrs):
+        """
+        Check that instance is properly configured.
+        """
+        if ('use_cache' in attrs or 'save_results' in attrs) and not 'analysis_name' in attrs:
+            raise serializers.ValidationError(
+                'name is required with use_cache and save_results options')
+
+        return attrs
 
 class NLPAnalysisSerializer(serializers.Serializer):
     """NLP analysis serializer class"""

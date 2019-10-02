@@ -57,25 +57,25 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
     def analyze(self, request_data):
         """Handle analysis"""
 
-        # prepare model parameters
-        # prepare model input
+
         # perform data model permission check on document association if required
         # perform the analysis if required (results change time earlier than documents)
-        # save the results if required
 
-        default_processing_instructions = dict(use_cache=False, save_results=False)
+        # prepare the request context
         default_model_params = dict()
-        model_descriptor = request_data['model_descriptor']
-        model_input = request_data['model_input']
-        model_params = request_data.get('model_params', default_model_params)
-        processing_instructions = request_data.get('processing_instructions',
-                                                   default_processing_instructions)
+        default_processing_instructions = dict(use_cache=False, save_results=False, name=None)
+        request_context = dict(
+            model_descriptor=request_data['model_descriptor'],
+            model_input=request_data['model_input'],
+            model_params=request_data.get('model_params', default_model_params),
+            processing_instructions=request_data.get('processing_instructions',
+                                                     default_processing_instructions),
+            username=self.request.user.username
+        )
         service = find(TEXT_ANALYTICS_SERVICE)
+        detail = service.analyze(request_context)
 
-        detail = service.analyze(model_descriptor=model_descriptor,
-                                 model_params=model_params,
-                                 model_input=model_input,
-                                 processing_instructions=processing_instructions)
+        # save the results if required and user is allowed to save the results
         response = Response(data=self._build_response_data(detail),
                             status=status.HTTP_200_OK)
 
