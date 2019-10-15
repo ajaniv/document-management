@@ -63,6 +63,10 @@ class ProcessingInstructionsSerializer(serializers.Serializer):
     save_results = serializers.BooleanField(default=False)
     analysis_name = serializers.CharField(max_length=constants.NAME_FIELD_MAX_LENGTH,
                                           min_length=None, allow_blank=False, allow_null=True)
+    analysis_description = serializers.CharField(required=False,
+                                                 max_length=constants.DESCRIPTION_FIELD_MAX_LENGTH,
+                                                 min_length=None,
+                                                 allow_blank=False, allow_null=True)
 
     class Meta:
         """Meta class"""

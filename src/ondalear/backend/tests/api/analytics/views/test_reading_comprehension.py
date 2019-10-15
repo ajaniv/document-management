@@ -15,6 +15,7 @@ from ondalear.analytics import (ALLENNLP_MODEL_FAMILY,
                                 MODEL_PRIMARY_OUTPUT_KEY)
 from ondalear.backend.docmgmt.models import DocumentAssociation
 from ondalear.backend.docmgmt.models.constants import DOCUMENT_ASSOCIATION_PURPOSE_QUESTION
+from ondalear.backend.analytics.models import AnalysisResults
 from ondalear.backend.tests.docmgmt.models import factories
 from ondalear.backend.tests.api.base import AbstractAPITestCase
 
@@ -115,7 +116,7 @@ class AssociatedDocumenteMixin:
 
 class AbstractAnalyticsTest(AssertMixin, AbstractAPITestCase):
     """Text analytics base test case class"""
-    model_class = DocumentAssociation
+    model_classes = (DocumentAssociation, AnalysisResults)
     url_name = 'analyze'
 
     @classmethod
@@ -129,7 +130,9 @@ class AbstractAnalyticsTest(AssertMixin, AbstractAPITestCase):
         super(AbstractAnalyticsTest, self).setUp()
 
         # configure user group and permissions relationships
-        self.configure_group(model_class=self.model_class)
+
+        [self.configure_group(model_class=model_class)  # pylint: disable=expression-not-assigned
+         for model_class in self.model_classes]
 
         # login
         self.login()
@@ -159,7 +162,8 @@ class AbstractReadingComphrensionBDAFTest(AbstractAnalyticsTest):
         """return expected response"""
         keys = ['passage_question_attention', 'span_start_logits',
                 'span_start_probs', 'span_end_logits', 'span_end_probs',
-                'best_span', 'best_span_str', 'question_tokens', 'passage_tokens']
+                'best_span', 'best_span_str', 'question_tokens', 'passage_tokens',
+                'analysis_results_id']
         data = {key: None for key in keys}
         data[MODEL_PRIMARY_OUTPUT_KEY] = 'Two'
 
@@ -193,6 +197,23 @@ class ReadingComprenhensionBDAFByValueTest(AbstractReadingComphrensionBDAFTest):
                                                        analysis_name='reading_comprehension')
         self.assert_analysis(request_data=request_data)
 
+    def test_by_value_with_results_saving(self):
+        # Expect to execute reading comprehension analysis and save the results
+        analysis_name = 'reading_comprehension'
+        request_data = self.analysis_data()
+        request_data['processing_instructions'] = dict(save_results=True,
+                                                       analysis_name=analysis_name,
+                                                       analysis_description='results save')
+
+        response = self.assert_analysis(request_data=request_data)
+
+        # verify saved results
+        analysis_results_id = response.data['detail']['analysis_results_id']
+        analysis_results = AnalysisResults.objects.get(pk=analysis_results_id)
+        self.assertEqual(analysis_results.name, analysis_name)
+        deleted_count = analysis_results.delete()[0]
+        self.assertEqual(deleted_count, 1)
+
 class ReadingComprenhensionBDAFByReferenceTest(AssociatedDocumenteMixin,
                                                AbstractReadingComphrensionBDAFTest):
     """Reading comprehension content by reference test case.
@@ -220,7 +241,7 @@ class AbstractReadingComprehensionBDAFNAQNAETTest(AbstractAnalyticsTest):
     def expected_response(self):
         """return expected response"""
         keys = ['loss', 'question_id', 'answer', 'passage_question_attention',
-                'question_tokens', 'passage_tokens']
+                'question_tokens', 'passage_tokens', 'analysis_results_id']
         data = {key: None for key in keys}
         data[MODEL_PRIMARY_OUTPUT_KEY] = {'answer_type': 'count', 'count': 2}
 

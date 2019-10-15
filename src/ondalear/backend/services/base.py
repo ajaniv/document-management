@@ -11,6 +11,9 @@ from abc import abstractmethod, ABC
 
 _logger = logging.getLogger(__name__)
 
+class ServiceException(Exception):
+    """Srvice exception class"""
+
 class AbstractService(ABC):
     """Base serivce class"""
 

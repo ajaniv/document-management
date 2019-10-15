@@ -4,11 +4,13 @@
 
 """
 import logging
+
 import rest_framework_filters as filters
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 
+from ondalear.backend.core.django.utils import current_site
 from ondalear.backend.analytics.models import AnalysisResults
 from ondalear.backend.services import find, TEXT_ANALYTICS_SERVICE
 from ondalear.backend.api import constants
@@ -31,16 +33,18 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
     """
     serializer_class = NLPAnalysisSerializer
 
-    def _build_response_data(self, detail, msg=None, api_status=None): # pylint: disable=unused-argument
+    def _build_response_data(self, results, saved_results, msg=None, api_status=None): # pylint: disable=unused-argument
         """build response data"""
         msg = msg or 'Analysis request successfully processed.'
         api_status = api_status or constants.STATUS_OK
         header = response_header(msg=msg,
                                  username=self.request.user.username,
                                  api_status=api_status)
+
+        results['analysis_results_id'] = saved_results.id if saved_results else None
         data = {
             'header': header,
-            'detail': detail
+            'detail': results
         }
         return data
 
@@ -70,13 +74,15 @@ class NLPAnalysisView(PermissionsMixin, DRFMixin,
             model_params=request_data.get('model_params', default_model_params),
             processing_instructions=request_data.get('processing_instructions',
                                                      default_processing_instructions),
-            username=self.request.user.username
+            user=self.request.user,
+            client=self.request.client,
+            site=current_site()
         )
         service = find(TEXT_ANALYTICS_SERVICE)
-        detail = service.analyze(request_context)
+        results, saved_results = service.analyze(request_context)
 
         # save the results if required and user is allowed to save the results
-        response = Response(data=self._build_response_data(detail),
+        response = Response(data=self._build_response_data(results, saved_results),
                             status=status.HTTP_200_OK)
 
         return response
