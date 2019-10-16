@@ -1,5 +1,4 @@
-## API
-### core
+### API
 * Determine if uploaded file exists in file system so that user can be provided heads up before clobbering file
 * Determine if effective user is required
 * Determine if uuid is required, adding value
@@ -13,7 +12,7 @@
   only when it is embedded.  This needs to be revisited, and consider the web
   server serving the file using a separate api end point.
 
-### Authenticaiton
+### Authentication
 * Only simple DRF token based authentication is supported.  Extend to JWT, oath2(i.e google), etc
 
 ### Site Admin
@@ -21,19 +20,24 @@
   CRUD operations.  Current implementation only supports fetch operations, requiring staff authorization.
 * Review whether read-only access is sufficient for non-staff users
 
-### General
+### Usage analytics
 * Log client amount of usage time per computation
 * Capture amount of time has user has been logged in
 
-## Analytics
+### Analytics
 * Provide high level model, customized model plug in
 
-## Models
+### Models
 * Determine if there is a need for custom User model or whether ClientUser is sufficient
 * Database queries have not been optimized.
 
-## Unit test
+### Unit test
 * It is not clear whether all database instances created are being deleted by underlying Django test framework.
   With sqlite it is not an issue, as the database is an in-memory instance deleted after test run.
   Separately, non-model unit tests track the instances created and delete them.  This may be redundant.
   Review the approach when using postgres as the back end.
+
+### Persistence
+* Optimize queries
+* Explore using alternative tenant implementation approaches (i.e Postgres Schema)
+  as per https://django-tenant-schemas.readthedocs.io/en/latest/use.html
