@@ -10,20 +10,21 @@ from rest_framework import status
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.api.constants import ANALYSIS_REQUIRED
 
+from ondalear.backend.tests.base_factories import model_class
 from ondalear.backend.tests.docmgmt.models import factories
-from .base import AbstractDocMgmtAPITestCase
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase
 
 logger = logging.getLogger(__name__)
 
 # pylint: disable=no-member,missing-docstring,too-many-ancestors
 _factory_class = factories.DocumentTagModelFactory
 
-class AbstractDocumentTagApiTest(AbstractDocMgmtAPITestCase):
+class AbstractDocumentTagApiTest(AbstractModelViewsetTestCase):
     """Base document tag  api test"""
     create_url_name = 'document-tag-crud-list'
 
     factory_class = _factory_class
-    model_class = factories.model_class(_factory_class)
+    model_class = model_class(_factory_class)
     create_request_data = []
     response_no_values = tuple()
 

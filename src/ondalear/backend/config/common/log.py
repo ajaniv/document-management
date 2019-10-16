@@ -5,7 +5,6 @@
 Django log settings file.
 
 """
-from __future__ import absolute_import
 import os
 from ondalear.backend.config.common.root import CURRENT_ENV, LOCAL_ENV, DEV_ENV, LOG_DIR
 
@@ -102,6 +101,16 @@ LOGGING = {
         'ondalear.backend.tests': {
             'handlers': ['log_file', 'console'],
             'level': LOG_LEVEL,
+            'propagate': True
+        },
+        'ondalear.backend': {
+            'handlers': ['log_file', 'console'],
+            'level': LOG_LEVEL_INFO,
+            'propagate': True
+        },
+        'ondalear.analytics': {
+            'handlers': ['log_file', 'console'],
+            'level': LOG_LEVEL_INFO,
             'propagate': True
         }
     }

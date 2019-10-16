@@ -7,8 +7,7 @@ This module contains annotation admin abstractions.
 """
 import logging
 
-from ondalear.backend.core.django.admin import AbstractModelAdmin
-from ondalear.backend.docmgmt.admin.base import register
+from ondalear.backend.core.django.admin import register, AbstractModelAdmin
 from ondalear.backend.docmgmt.models import  Annotation
 
 _logger = logging.getLogger(__name__)

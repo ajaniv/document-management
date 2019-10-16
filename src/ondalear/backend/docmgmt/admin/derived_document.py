@@ -8,7 +8,7 @@ This module contains derived document admin abstractions.
 import logging
 from django.contrib import admin
 
-from ondalear.backend.docmgmt.admin.base import register
+from ondalear.backend.core.django.admin import register
 from ondalear.backend.docmgmt.models import  AuxiliaryDocument, Document, ReferenceDocument
 
 _logger = logging.getLogger(__name__)

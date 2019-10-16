@@ -72,7 +72,7 @@ class AbstractDocumentModel(AbstractDocumentManagementModel):
         return self.name
 
 
-_document = "Document"
+_document = 'Document'
 _document_verbose = humanize(underscore(_document))
 
 class Document(AbstractDocumentModel):
@@ -171,7 +171,27 @@ class AbstractDerivedDocumentModel(Model):
         return super(AbstractDerivedDocumentModel, self).save(force_insert, force_update,
                                                               using, update_fields)
 
-_auxiliary_document = "AuxiliaryDocument"
+    def get_file_contents(self):
+        """get file contents if file has been uploaded"""
+        # @TODO: not handling file contents if file has not been uploaded
+        #   (i.e. dir_path is set and upload is not set)
+        data = None
+        if self.upload:
+            # pylint: disable=no-member
+            try:
+                with open(self.upload.path) as input_file:
+                    data = input_file.read()
+            except IOError as ex:
+                _logger.error('invalid file %s exc %s', self.upload.path, ex)
+        return data
+
+    def get_text(self):
+        """get text data"""
+        if self.content:
+            return self.content
+        return self.get_file_contents()
+
+_auxiliary_document = 'AuxiliaryDocument'
 _auxiliary_document_verbose = humanize(underscore(_auxiliary_document))
 
 class AuxiliaryDocument(AbstractDerivedDocumentModel):
@@ -193,7 +213,7 @@ class AuxiliaryDocument(AbstractDerivedDocumentModel):
         return constants.DOCUMENT_TYPE_AUXILIARY
 
 
-_reference_document = "ReferenceDocument"
+_reference_document = 'ReferenceDocument'
 _reference_document_verbose = humanize(underscore(_reference_document))
 
 class ReferenceDocument(AbstractDerivedDocumentModel):

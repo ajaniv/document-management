@@ -8,7 +8,7 @@ import logging
 
 from ondalear.backend.docmgmt.models import Annotation
 from ondalear.backend.tests.docmgmt.models import factories
-from ondalear.backend.tests.api.docmgmt.views.base import AbstractDocMgmtAPITestCase
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase
 
 
 
@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 # pylint: disable=no-member,missing-docstring,too-many-ancestors
 
 
-class AnnotationApiTest(AbstractDocMgmtAPITestCase):
+class AbstractAnnotationApiTest(AbstractModelViewsetTestCase):
     """Base annotation  api test"""
     create_url_name = 'annotation-crud-list'
     factory_class = factories.AnnotationModelFactory
@@ -30,7 +30,7 @@ class AnnotationApiTest(AbstractDocMgmtAPITestCase):
 
     response_no_values = tuple()
 
-class AnnotationAPIPostTest(AnnotationApiTest):
+class AnnotationAPIPostTest(AbstractAnnotationApiTest):
     """Annotation post test case"""
 
     url_name = 'annotation-crud-list'
@@ -40,7 +40,7 @@ class AnnotationAPIPostTest(AnnotationApiTest):
         self.assert_create()
 
 
-class AnnotationAPIListTest(AnnotationApiTest):
+class AnnotationAPIListTest(AbstractAnnotationApiTest):
     """Annotation list test case"""
 
     url_name = 'annotation-crud-list'
@@ -50,7 +50,7 @@ class AnnotationAPIListTest(AnnotationApiTest):
         self.assert_list()
 
 
-class AnnotationAPIRetrieveTest(AnnotationApiTest):
+class AnnotationAPIRetrieveTest(AbstractAnnotationApiTest):
     """Annotation retrieve test case"""
 
     url_name = 'annotation-crud-detail'
@@ -60,7 +60,7 @@ class AnnotationAPIRetrieveTest(AnnotationApiTest):
         self.assert_retrieve()
 
 
-class AnnotationPIPutTest(AnnotationApiTest):
+class AnnotationPIPutTest(AbstractAnnotationApiTest):
     """Annotation put test case"""
 
     url_name = 'annotation-crud-detail'
@@ -70,7 +70,7 @@ class AnnotationPIPutTest(AnnotationApiTest):
         self.assert_put()
 
 
-class AnnotationAPIPatchTest(AnnotationApiTest):
+class AnnotationAPIPatchTest(AbstractAnnotationApiTest):
     """Annotation patch test case"""
 
     url_name = 'annotation-crud-detail'
@@ -80,7 +80,7 @@ class AnnotationAPIPatchTest(AnnotationApiTest):
         self.assert_patch()
 
 
-class AnnotationAPIDeleteTest(AnnotationApiTest):
+class AnnotationAPIDeleteTest(AbstractAnnotationApiTest):
     """Annotation delete test case"""
 
     url_name = 'annotation-crud-detail'

@@ -1,6 +1,6 @@
 """
-.. module:: ondalear.backend.tests.api.docmgmt.views.base
-   :synopsis: docmgmt api views base  unittest module.
+.. module:: ondalear.backend.tests.api.docmgmt.views.base_model_viewset
+   :synopsis: model view set unittest module.
 
 
 """
@@ -106,9 +106,9 @@ class AssertMixin:
         """assert list item"""
         self.assert_response_detail(data)
 
-    def assert_list(self, query_str=None, expected_count=1, documents=None):
+    def assert_list(self, query_str=None, expected_count=1, objects=None):
         """Verify list processing"""
-        if not documents:
+        if not objects:
             self.assert_create()
         url = reverse(self.url_name)
 
@@ -304,7 +304,7 @@ class AssertMixin:
 
 
 
-class AbstractDocMgmtAPITestCase(AssertMixin, AbstractAPITestCase):
+class AbstractModelViewsetTestCase(AssertMixin, AbstractAPITestCase):
     """Base docmgmt api test case class"""
 
     short_create_response_fields = ('creation_time', 'id', 'uuid', 'version')
@@ -323,14 +323,12 @@ class AbstractDocMgmtAPITestCase(AssertMixin, AbstractAPITestCase):
     @classmethod
     def setUpClass(cls):
         """Class setup"""
-        super(AbstractDocMgmtAPITestCase, cls).setUpClass()
-        cls.create_group()
-        cls.create_client()
-        cls.create_client_user()
+        super(AbstractModelViewsetTestCase, cls).setUpClass()
+        cls.create_essential_objects()
 
     def setUp(self):
         """test case level setup"""
-        super(AbstractDocMgmtAPITestCase, self).setUp()
+        super(AbstractModelViewsetTestCase, self).setUp()
 
         # configure user group and permissions relationships
         self.configure_group(model_class=self.model_class)
@@ -341,7 +339,7 @@ class AbstractDocMgmtAPITestCase(AssertMixin, AbstractAPITestCase):
     def tearDown(self):
         """test case level tear down"""
         self.logout()
-        super(AbstractDocMgmtAPITestCase, self).tearDown()
+        super(AbstractModelViewsetTestCase, self).tearDown()
 
     def create_data(self):
         """create data"""

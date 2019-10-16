@@ -6,9 +6,9 @@
 """
 import logging
 
-from .base import ClassCRUDMixin
+from ondalear.backend.tests.base_models import AbstractModelTestCase, ClassCRUDMixin
 from . import factories
-from .base  import AbstractModelTestCase
+
 
 _logger = logging.getLogger(__name__)
 

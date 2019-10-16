@@ -3,9 +3,10 @@
    :synopsis:  database data initialization.
 
 """
-from __future__ import unicode_literals, absolute_import
 import os
 import logging
+from  datetime import datetime
+from django.utils import timezone
 from django.db import migrations
 from django.contrib.auth.models import User     # where User lives
 
@@ -23,7 +24,8 @@ def forwards_func(apps, schema_editor):
         email=os.getenv("SITE_ADMIN_USER_EMAIL", "admin@ondalear.com"),
         password=os.getenv("SITE_ADMIN_PASSWORD", "admin"),
         is_staff=True,
-        is_superuser=True)
+        is_superuser=True,
+        last_login=datetime.now(tz=timezone.utc))
     assert isinstance(admin, (User,))
     _logger.info("created super user: %s", admin.username)
 

@@ -85,7 +85,6 @@ class DRFMixin:
     def raise_uncaught_exception(self, exc):
         """handle uncaught exception"""
         _logger.exception('uncaught exception')
-        breakpoint()
         super(DRFMixin, self).raise_uncaught_exception(exc)
 
     def initial(self, request, *args, **kwargs):
