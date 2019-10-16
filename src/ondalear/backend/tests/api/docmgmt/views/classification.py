@@ -9,13 +9,13 @@ from rest_framework import status
 
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.tests.docmgmt.models import factories
-from ondalear.backend.tests.api.docmgmt.views.base import AbstractDocMgmtAPITestCase
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase
 
 _logger = logging.getLogger(__name__)
 
 # pylint: disable=too-many-ancestors,attribute-defined-outside-init,missing-docstring,no-member
 
-class AbstractClassificationApiTest(AbstractDocMgmtAPITestCase):
+class AbstractClassificationApiTest(AbstractModelViewsetTestCase):
     """Base classification api test"""
     def assert_list_system_classification(self):
         """expect to fetch classification given that the client  is system client"""

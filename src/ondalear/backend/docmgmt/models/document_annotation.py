@@ -20,7 +20,7 @@ from ondalear.backend.docmgmt.models.base import app_label, AbstractDocumentMana
 _logger = logging.getLogger(__name__)
 
 
-_document_annotation = "DocumentAnnotation"
+_document_annotation = 'DocumentAnnotation'
 _document_annotation_verbose = humanize(underscore(_document_annotation))
 
 class DocumentAnnotation(AbstractDocumentManagementModel):

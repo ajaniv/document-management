@@ -160,7 +160,7 @@ class DocumentAssociationListTest(LinkedDocumentsMixin, AbstractReferenceDocumen
     def test_list(self):
         # expect to list documents through api
 
-        response = self.assert_list(documents=self.ref_doc)
+        response = self.assert_list(objects=[self.ref_doc])
         # verify that the linked document is returned and has the expected id
         self.assertEqual(response.data['detail'][0]['documents'], [self.aux_doc.document.id])
 

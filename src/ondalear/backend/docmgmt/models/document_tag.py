@@ -21,7 +21,7 @@ from ondalear.backend.docmgmt.models.base import AbstractDocumentManagementModel
 _logger = logging.getLogger(__name__)
 
 
-_document_tag = "DocumentTag"
+_document_tag = 'DocumentTag'
 _document_tag_verbose = humanize(underscore(_document_tag))
 
 class DocumentTag(AbstractDocumentManagementModel):

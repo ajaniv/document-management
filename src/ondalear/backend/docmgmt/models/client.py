@@ -19,7 +19,7 @@ from ondalear.backend.docmgmt.models import constants
 
 _logger = logging.getLogger(__name__)
 
-_client = "Client"
+_client = 'Client'
 _client_verbose = humanize(underscore(_client))
 
 class Client(AbstractDocumentManagementModel):
@@ -48,7 +48,7 @@ class Client(AbstractDocumentManagementModel):
         """pretty format instance as string"""
         return self.client_id
 
-_client_user = "ClientUser"
+_client_user = 'ClientUser'
 _client_user_verbose = humanize(underscore(_client_user))
 
 

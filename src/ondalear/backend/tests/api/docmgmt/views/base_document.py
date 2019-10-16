@@ -18,7 +18,7 @@ from rest_framework import status
 from ondalear.backend.core.python.utils import file_exists, module_directory, remove, utc_now
 from ondalear.backend.docmgmt.models import constants
 from ondalear.backend.tests.docmgmt.models import factories
-from .base import AbstractDocMgmtAPITestCase, AssertMixin
+from ondalear.backend.tests.api.model_viewset  import AbstractModelViewsetTestCase, AssertMixin
 
 _logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ _logger = logging.getLogger(__name__)
 
 def test_data_file_path(file_name):
     """construct test data file path"""
-    data_dir = os.path.join(module_directory(__file__), "data")
+    data_dir = os.path.join(module_directory(__file__), 'data')
     return os.path.join(data_dir, file_name)
 
 def uploaded_file_path(file_name, client_id, username):
@@ -110,19 +110,19 @@ class DocumentAssertMixin(AssertMixin):
         """expect to fetch document list"""
         tag_id = self.tag.id
         query_str = f'document__tags__in={tag_id}'
-        self.assert_list(query_str=query_str, documents=[self.doc1])
+        self.assert_list(query_str=query_str, objects=[self.doc1])
 
     def assert_tags_missing(self):
         """ expect to fail to fetch document list"""
         self.assert_list(query_str='document__tags__in=100',
                          expected_count=0,
-                         documents=[self.doc1])
+                         objects=[self.doc1])
 
     def assert_tags_in(self):
         """expect to fetch document list"""
         tag_id = self.tag.id
         query_str = f'document__tags__in={tag_id},100,200'
-        self.assert_list(query_str=query_str, documents=[self.doc1])
+        self.assert_list(query_str=query_str, objects=[self.doc1])
 
 
 class FileUploadMixin:
@@ -232,7 +232,7 @@ class FileUploadAssertMixin:
         finally:
             self.remove_files((self.source_file_name,))
 
-class AbstractDocumentApiTest(DocumentAssertMixin, AbstractDocMgmtAPITestCase):
+class AbstractDocumentApiTest(DocumentAssertMixin, AbstractModelViewsetTestCase):
     """Base  document api test"""
 
     datetime_format = '%Y-%m-%d+%H:%M:%S'
@@ -465,7 +465,7 @@ class DocumentAnnotationMixin:
     def test_list(self):
         # expect to list documents through api
 
-        response = self.assert_list(documents=self.containing_doc)
+        response = self.assert_list(objects=[self.containing_doc])
         # verify that the associated annotation is returned and has the expected id
 
         self.assertEqual(

@@ -14,6 +14,12 @@ from django.contrib.auth.models import User
 
 _logger = logging.getLogger(__name__)
 
+
+def register(model_classes, admin_classes):
+    """register model and admin classes with admin"""
+    for model_class, admin_class in zip(model_classes, admin_classes):
+        admin.site.register(model_class, admin_class)
+
 class ModelAdminMixin:
     """ModelAdmin mixin class."""
     def prepare(self, request, obj, form, change):
